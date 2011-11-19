@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.torshify/v1" elementFormDefault="qualified" targetNamespace="http://schemas.torshify/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Initialize">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="link" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InitializeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Enqueue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="link" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnqueueResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Next">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NextResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Previous">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PreviousResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrent">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCurrentResult" nillable="true" type="tns:PlaylistTrack" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PlaylistTrack">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsQueued" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Track" nillable="true" type="tns:Track" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlaylistTrack" nillable="true" type="tns:PlaylistTrack" />
+  <xs:complexType name="Track">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Album" nillable="true" type="tns:Album" />
+      <xs:element minOccurs="0" name="Duration" type="xs:double" />
+      <xs:element minOccurs="0" name="Index" type="xs:int" />
+      <xs:element minOccurs="0" name="Disc" type="xs:int" />
+      <xs:element minOccurs="0" name="Popularity" type="xs:int" />
+      <xs:element minOccurs="0" name="IsStarred" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OfflineStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsLocal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Artists" nillable="true" type="tns:ArrayOfArtist" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Track" nillable="true" type="tns:Track" />
+  <xs:complexType name="Album">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CoverID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsAvailable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Year" type="xs:int" />
+      <xs:element minOccurs="0" name="Artist" nillable="true" type="tns:Artist" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Album" nillable="true" type="tns:Album" />
+  <xs:complexType name="Artist">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PortraitID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Artist" nillable="true" type="tns:Artist" />
+  <xs:complexType name="ArrayOfArtist">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Artist" nillable="true" type="tns:Artist" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArtist" nillable="true" type="tns:ArrayOfArtist" />
+  <xs:element name="GetPlaylist">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlaylistResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPlaylistResult" nillable="true" type="tns:ArrayOfPlaylistTrack" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfPlaylistTrack">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlaylistTrack" nillable="true" type="tns:PlaylistTrack" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlaylistTrack" nillable="true" type="tns:ArrayOfPlaylistTrack" />
+</xs:schema>

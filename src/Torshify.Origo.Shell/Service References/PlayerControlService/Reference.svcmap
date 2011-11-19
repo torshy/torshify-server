@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="289ae0da-bbbb-4122-89c8-d45f9c6ff2e9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:1337/torshify/v1/playercontrol/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="v1.wsdl" MetadataType="Wsdl" ID="11b250ca-953f-40b6-83f3-5541f13095a1" SourceId="1" SourceUrl="net.tcp://localhost:1337/torshify/v1/playercontrol/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="40c2ab34-b240-4371-89e9-e5ada30a5869" SourceId="1" SourceUrl="net.tcp://localhost:1337/torshify/v1/playercontrol/mex" />
+    <MetadataFile FileName="v1.xsd" MetadataType="Schema" ID="b9279024-deab-4b90-9625-e48b023b8c2f" SourceId="1" SourceUrl="net.tcp://localhost:1337/torshify/v1/playercontrol/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="8e2af49f-3ce1-4073-a461-f8069de9e399" SourceId="1" SourceUrl="net.tcp://localhost:1337/torshify/v1/playercontrol/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

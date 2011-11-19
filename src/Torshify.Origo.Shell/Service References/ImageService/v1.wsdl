@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.torshify/v1" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.torshify/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://schemas.torshify/v1/Imports">
+      <xsd:import namespace="http://schemas.torshify/v1" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.microsoft.com/Message" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ImageService_GetAlbumImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlbumImage" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetAlbumImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlbumImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetTrackImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackImage" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetTrackImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetArtistImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtistImage" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetArtistImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtistImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetImage" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetImageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ImageService">
+    <wsdl:operation name="GetAlbumImage">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetAlbumImage" message="tns:ImageService_GetAlbumImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetAlbumImageResponse" message="tns:ImageService_GetAlbumImage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrackImage">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetTrackImage" message="tns:ImageService_GetTrackImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetTrackImageResponse" message="tns:ImageService_GetTrackImage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArtistImage">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetArtistImage" message="tns:ImageService_GetArtistImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetArtistImageResponse" message="tns:ImageService_GetArtistImage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImage">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetImage" message="tns:ImageService_GetImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetImageResponse" message="tns:ImageService_GetImage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
