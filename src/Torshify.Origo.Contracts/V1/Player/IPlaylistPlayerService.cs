@@ -19,5 +19,13 @@ namespace Torshify.Origo.Contracts.V1.Player
         PlaylistTrack GetCurrent();
         [OperationContract]
         PlaylistTrack[] GetPlaylist();
+        [OperationContract]
+        void SetShuffle(bool shuffle);
+        [OperationContract]
+        void SetRepeat(bool repeat);
+        [OperationContract]
+        bool GetRepeat();
+        [OperationContract]
+        bool GetShuffle();
     }
 }

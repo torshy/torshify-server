@@ -29,10 +29,10 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         private double ElapsedTimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsPlayingField;
+        private double TotalTimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double TotalTimeField;
+        private bool IsPlayingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private float VolumeField;
@@ -74,19 +74,6 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsPlaying {
-            get {
-                return this.IsPlayingField;
-            }
-            set {
-                if ((this.IsPlayingField.Equals(value) != true)) {
-                    this.IsPlayingField = value;
-                    this.RaisePropertyChanged("IsPlaying");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public double TotalTime {
             get {
                 return this.TotalTimeField;
@@ -99,7 +86,20 @@ namespace Torshify.Origo.Shell.PlayerControlService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public bool IsPlaying {
+            get {
+                return this.IsPlayingField;
+            }
+            set {
+                if ((this.IsPlayingField.Equals(value) != true)) {
+                    this.IsPlayingField = value;
+                    this.RaisePropertyChanged("IsPlaying");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
         public float Volume {
             get {
                 return this.VolumeField;

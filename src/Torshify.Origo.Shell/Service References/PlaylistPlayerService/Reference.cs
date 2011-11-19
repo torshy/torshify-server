@@ -518,6 +518,18 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistResponse")]
         Torshify.Origo.Shell.PlaylistPlayerService.PlaylistTrack[] GetPlaylist();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleResponse")]
+        void SetShuffle(bool shuffle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatResponse")]
+        void SetRepeat(bool repeat);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatResponse")]
+        bool GetRepeat();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleResponse")]
+        bool GetShuffle();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -569,6 +581,22 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
         
         public Torshify.Origo.Shell.PlaylistPlayerService.PlaylistTrack[] GetPlaylist() {
             return base.Channel.GetPlaylist();
+        }
+        
+        public void SetShuffle(bool shuffle) {
+            base.Channel.SetShuffle(shuffle);
+        }
+        
+        public void SetRepeat(bool repeat) {
+            base.Channel.SetRepeat(repeat);
+        }
+        
+        public bool GetRepeat() {
+            return base.Channel.GetRepeat();
+        }
+        
+        public bool GetShuffle() {
+            return base.Channel.GetShuffle();
         }
     }
 }

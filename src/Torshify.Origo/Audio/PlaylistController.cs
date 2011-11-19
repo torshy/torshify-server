@@ -33,6 +33,12 @@ namespace Torshify.Origo.Audio
 
         #region Methods
 
+        public bool Repeat
+        {
+            get { return _playlist.Repeat; }
+            set { _playlist.Repeat = value; }
+        }
+
         public void Enqueue(string linkId)
         {
             var tracks = GetTracks(linkId);
@@ -67,6 +73,18 @@ namespace Torshify.Origo.Audio
         public PlaylistTrack[] Sequence
         {
             get { return _playlist.Sequence.ToArray(); }
+        }
+
+        public bool Shuffle
+        {
+            get
+            {
+                return _playlist.Shuffle;
+            }
+            set
+            {
+                _playlist.Shuffle = value;
+            }
         }
 
         private IEnumerable<Track> GetTracks(string linkId)

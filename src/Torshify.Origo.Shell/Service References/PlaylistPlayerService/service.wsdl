@@ -70,6 +70,42 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetShuffle">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetRepeat">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepeat">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShuffle">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PlaylistPlayerService">
     <wsdl:port name="NetTcpBinding_PlaylistPlayerService" binding="tns:NetTcpBinding_PlaylistPlayerService">

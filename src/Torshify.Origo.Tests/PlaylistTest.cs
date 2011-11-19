@@ -32,7 +32,6 @@ namespace Torshify.Origo.Tests
                              };
 
             _playlist.Initialize(tracks);
-
             CollectionAssert.AreEqual(tracks, _playlist.Sequence.ToArray());
         }
 
@@ -131,6 +130,21 @@ namespace Torshify.Origo.Tests
 
                 _playlist.Previous();
             }
+        }
+
+        [Test]
+        public void ShufflePlaylist_SequenceShouldContainAllTracks()
+        {
+            var tracks = new[]
+                             {
+                                 new Track("Track1"),
+                                 new Track("Track2"),
+                                 new Track("Track3")
+                             };
+
+            _playlist.Initialize(tracks);
+            _playlist.Shuffle = true;
+            CollectionAssert.AreEquivalent(tracks, _playlist.Sequence.ToArray());
         }
 
         #endregion Methods

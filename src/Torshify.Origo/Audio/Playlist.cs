@@ -9,11 +9,15 @@ namespace Torshify.Origo.Audio
     {
         #region Fields
 
+        private static Random _random = new Random();
+
         private T _current;
         private List<T> _playlist;
         private int _playlistIndex;
         private int[] _playlistIndices;
         private Queue<T> _queue;
+        private bool _repeat;
+        private bool _shuffle;
 
         #endregion Fields
 
@@ -45,6 +49,12 @@ namespace Torshify.Origo.Audio
             }
         }
 
+        public bool Repeat
+        {
+            get { return _repeat; }
+            set { _repeat = value; }
+        }
+
         public IEnumerable<T> Sequence
         {
             get
@@ -54,12 +64,35 @@ namespace Torshify.Origo.Audio
                 sequence.Add(Current);
                 sequence.AddRange(_queue);
 
-                for (int i = _playlistIndex + 1; i < _playlistIndices.Length; i++)
+                for (int i = _playlistIndex; i < _playlistIndices.Length; i++)
                 {
-                    sequence.Add(_playlist[_playlistIndices[i]]);
+                    var item = _playlist[_playlistIndices[i]];
+
+                    if (!sequence.Contains(item))
+                    {
+                        sequence.Add(item);
+                    }
                 }
 
                 return sequence;
+            }
+        }
+
+        public bool Shuffle
+        {
+            get { return _shuffle; }
+            set
+            {
+                _shuffle = value;
+
+                if (_shuffle)
+                {
+                    _playlistIndices = BuildShuffledIndexArray(_playlist.Count);
+                }
+                else
+                {
+                    _playlistIndices = Enumerable.Range(0, _playlist.Count).ToArray();
+                }
             }
         }
 
@@ -113,6 +146,36 @@ namespace Torshify.Origo.Audio
             }
 
             Current = _playlist[_playlistIndices[_playlistIndex]];
+        }
+
+        private static int[] BuildShuffledIndexArray(int size)
+        {
+            int[] array = new int[size];
+
+            for (int currentIndex = array.Length - 1; currentIndex > 0; currentIndex--)
+            {
+                int nextIndex = _random.Next(currentIndex + 1);
+                Swap(array, currentIndex, nextIndex);
+            }
+
+            return array;
+        }
+
+        private static void Swap(IList<int> array, int firstIndex, int secondIndex)
+        {
+            if (array[firstIndex] == 0)
+            {
+                array[firstIndex] = firstIndex;
+            }
+
+            if (array[secondIndex] == 0)
+            {
+                array[secondIndex] = secondIndex;
+            }
+
+            int temp = array[secondIndex];
+            array[secondIndex] = array[firstIndex];
+            array[firstIndex] = temp;
         }
 
         private void OnCurrentChanged()

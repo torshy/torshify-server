@@ -7,15 +7,15 @@ namespace Torshify.Origo.Contracts.V1
         Namespace = "http://schemas.torshify/v1")]
     public class PlayerStatus : IExtensibleDataObject
     {
-        [DataMember]
+        [DataMember(Name = "CurrentTrack", Order = 0)]
         public Track CurrentTrack { get; set; }
-        [DataMember]
+        [DataMember(Name = "ElapsedTime", Order = 1)]
         public double ElapsedTime { get; set; }
-        [DataMember]
+        [DataMember(Name = "TotalTime", Order = 2)]
         public double TotalTime { get; set; }
-        [DataMember]
+        [DataMember(Name = "IsPlaying", Order = 3)]
         public bool IsPlaying { get; set; }
-        [DataMember]
+        [DataMember(Name = "Volume", Order = 4)]
         public float Volume { get; set; }
 
         public ExtensionDataObject ExtensionData { get; set; }

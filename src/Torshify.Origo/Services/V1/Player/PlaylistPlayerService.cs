@@ -46,5 +46,29 @@ namespace Torshify.Origo.Services.V1.Player
             var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
             return playlistController.Sequence;
         }
+
+        public void SetShuffle(bool shuffle)
+        {
+            var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
+            playlistController.Shuffle = shuffle;
+        }
+
+        public void SetRepeat(bool repeat)
+        {
+            var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
+            playlistController.Repeat = repeat;
+        }
+
+        public bool GetRepeat()
+        {
+            var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
+            return playlistController.Repeat;
+        }
+
+        public bool GetShuffle()
+        {
+            var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
+            return playlistController.Shuffle;
+        }
     }
 }

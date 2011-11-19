@@ -16,8 +16,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CurrentTrack" nillable="true" type="tns:Track" />
       <xs:element minOccurs="0" name="ElapsedTime" type="xs:double" />
-      <xs:element minOccurs="0" name="IsPlaying" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalTime" type="xs:double" />
+      <xs:element minOccurs="0" name="IsPlaying" type="xs:boolean" />
       <xs:element minOccurs="0" name="Volume" type="xs:float" />
     </xs:sequence>
   </xs:complexType>

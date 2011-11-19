@@ -49,14 +49,4 @@ namespace Torshify.Origo.Interfaces
 
         #endregion Methods
     }
-
-    public interface IPlaylistController
-    {
-        void Enqueue(string linkId);
-        void Initialize(string linkId);
-        void Next();
-        void Previous();
-        PlaylistTrack Current { get; }
-        PlaylistTrack[] Sequence { get; }
-    }
 }

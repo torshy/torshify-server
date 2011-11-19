@@ -42,6 +42,30 @@
   <wsdl:message name="PlaylistPlayerService_GetPlaylist_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlaylistResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetShuffle_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetShuffle" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetShuffle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetShuffleResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetRepeat_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetRepeat" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetRepeat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetRepeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetRepeat_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRepeat" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetRepeat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRepeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetShuffle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShuffle" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetShuffle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShuffleResponse" />
+  </wsdl:message>
   <wsdl:portType name="PlaylistPlayerService">
     <wsdl:operation name="Initialize">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/Initialize" message="tns:PlaylistPlayerService_Initialize_InputMessage" />
@@ -66,6 +90,22 @@
     <wsdl:operation name="GetPlaylist">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylist" message="tns:PlaylistPlayerService_GetPlaylist_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistResponse" message="tns:PlaylistPlayerService_GetPlaylist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetShuffle">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle" message="tns:PlaylistPlayerService_SetShuffle_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleResponse" message="tns:PlaylistPlayerService_SetShuffle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetRepeat">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat" message="tns:PlaylistPlayerService_SetRepeat_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatResponse" message="tns:PlaylistPlayerService_SetRepeat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepeat">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat" message="tns:PlaylistPlayerService_GetRepeat_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatResponse" message="tns:PlaylistPlayerService_GetRepeat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShuffle">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle" message="tns:PlaylistPlayerService_GetShuffle_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleResponse" message="tns:PlaylistPlayerService_GetShuffle_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>
