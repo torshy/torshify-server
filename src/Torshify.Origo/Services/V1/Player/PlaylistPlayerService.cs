@@ -8,7 +8,7 @@ using Torshify.Origo.Interfaces;
 
 namespace Torshify.Origo.Services.V1.Player
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class PlaylistPlayerService : IPlaylistPlayerService
     {
         public void Initialize(string linkId)

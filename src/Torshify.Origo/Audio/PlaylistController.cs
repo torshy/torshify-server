@@ -41,18 +41,18 @@ namespace Torshify.Origo.Audio
 
         public void Enqueue(string linkId)
         {
-            var tracks = GetTracks(linkId);
-            var tracksToEnqueue = tracks.Select(t => new PlaylistTrack {Track = t, IsQueued = true});
+            var tracks = GetTracks(linkId).ToArray();
+            var tracksToEnqueue = tracks.Select(t => new PlaylistTrack {Track = t, IsQueued = true}).ToArray();
 
-            _playlist.Enqueue(tracksToEnqueue.ToArray());
+            _playlist.Enqueue(tracksToEnqueue);
         }
 
         public void Initialize(string linkId)
         {
-            var tracks = GetTracks(linkId);
-            var trackToInitialize = tracks.Select(t => new PlaylistTrack { Track = t });
+            var tracks = GetTracks(linkId).ToArray();
+            var trackToInitialize = tracks.Select(t => new PlaylistTrack { Track = t }).ToArray();
 
-            _playlist.Initialize(trackToInitialize.ToArray());
+            _playlist.Initialize(trackToInitialize);
         }
 
         public void Next()
@@ -144,7 +144,7 @@ namespace Torshify.Origo.Audio
 
         private IEnumerable<Track> GetTracks(ILink<ITrackAndOffset> link)
         {
-            yield return Convertion.ConvertToDto(link.Object.Track);
+            return new[] {Convertion.ConvertToDto(link.Object.Track)};
         }
 
         private void OnPlaylistCurrentChanged(object sender, EventArgs e)
