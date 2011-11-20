@@ -555,6 +555,15 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/TogglePause", ReplyAction="http://schemas.torshify/v1/PlayerControlService/TogglePauseResponse")]
         void TogglePause();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/SetVolume", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SetVolumeResponse")]
+        void SetVolume(float volume);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/GetVolume", ReplyAction="http://schemas.torshify/v1/PlayerControlService/GetVolumeResponse")]
+        float GetVolume();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/Seek", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SeekResponse")]
+        void Seek(double milliseconds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/Subscribe", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SubscribeResponse")]
         void Subscribe();
         
@@ -567,6 +576,9 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/PlayerControlService/OnTrackChanged")]
         void OnTrackChanged(Torshify.Origo.Shell.PlayerControlService.Track track);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/PlayerControlService/OnTrackComplete")]
+        void OnTrackComplete(Torshify.Origo.Shell.PlayerControlService.Track track);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/PlayerControlService/OnElapsed")]
         void OnElapsed(double elapsedMs, double totalMs);
@@ -609,6 +621,18 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         
         public void TogglePause() {
             base.Channel.TogglePause();
+        }
+        
+        public void SetVolume(float volume) {
+            base.Channel.SetVolume(volume);
+        }
+        
+        public float GetVolume() {
+            return base.Channel.GetVolume();
+        }
+        
+        public void Seek(double milliseconds) {
+            base.Channel.Seek(milliseconds);
         }
         
         public void Subscribe() {

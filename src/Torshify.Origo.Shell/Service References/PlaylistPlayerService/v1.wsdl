@@ -4,6 +4,7 @@
     <xsd:schema targetNamespace="http://schemas.torshify/v1/Imports">
       <xsd:import namespace="http://schemas.torshify/v1" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="PlaylistPlayerService_Initialize_InputMessage">

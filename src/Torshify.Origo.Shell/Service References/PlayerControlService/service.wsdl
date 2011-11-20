@@ -34,6 +34,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetVolume">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/SetVolume" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVolume">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/GetVolume" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Seek">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/Seek" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Subscribe">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/Subscribe" style="document" />
       <wsdl:input>
@@ -54,6 +81,12 @@
     </wsdl:operation>
     <wsdl:operation name="OnTrackChanged">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/OnTrackChanged" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnTrackComplete">
+      <soap12:operation soapAction="http://schemas.torshify/v1/PlayerControlService/OnTrackComplete" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

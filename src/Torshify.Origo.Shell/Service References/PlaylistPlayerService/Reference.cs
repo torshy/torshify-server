@@ -502,10 +502,10 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
     public interface PlaylistPlayerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Initialize", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/InitializeResponse")]
-        void Initialize(string link);
+        void Initialize(string[] links);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Enqueue", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/EnqueueResponse")]
-        void Enqueue(string link);
+        void Enqueue(string[] links);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Next", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/NextResponse")]
         void Next();
@@ -559,12 +559,12 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
                 base(binding, remoteAddress) {
         }
         
-        public void Initialize(string link) {
-            base.Channel.Initialize(link);
+        public void Initialize(string[] links) {
+            base.Channel.Initialize(links);
         }
         
-        public void Enqueue(string link) {
-            base.Channel.Enqueue(link);
+        public void Enqueue(string[] links) {
+            base.Channel.Enqueue(links);
         }
         
         public void Next() {

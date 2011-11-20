@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Torshify.Origo.Shell.PlaylistPlayerService;
 using Torshify.Origo.Shell.QueryService;
 
 namespace Torshify.Origo.Shell
@@ -8,8 +8,9 @@ namespace Torshify.Origo.Shell
     {
         static void Main(string[] args)
         {
-            PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
-
+            //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
+            PlaylistPlayerServiceClient player = new PlaylistPlayerServiceClient();
+            player.Initialize("spotify:track:2lvILTIWBbzFeHF95zSWoF");
             Console.ReadLine();
         }
 

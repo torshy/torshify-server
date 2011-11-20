@@ -74,6 +74,42 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetVolume">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="volume" type="xs:float" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetVolumeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVolume">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVolumeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetVolumeResult" type="xs:float" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Seek">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="milliseconds" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SeekResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Subscribe">
     <xs:complexType>
       <xs:sequence />
@@ -95,6 +131,13 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="OnTrackChanged">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="track" nillable="true" type="tns:Track" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnTrackComplete">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="track" nillable="true" type="tns:Track" />

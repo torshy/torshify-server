@@ -18,6 +18,24 @@
   <wsdl:message name="PlayerControlService_TogglePause_OutputMessage">
     <wsdl:part name="parameters" element="tns:TogglePauseResponse" />
   </wsdl:message>
+  <wsdl:message name="PlayerControlService_SetVolume_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetVolume" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_SetVolume_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetVolumeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_GetVolume_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVolume" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_GetVolume_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVolumeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_Seek_InputMessage">
+    <wsdl:part name="parameters" element="tns:Seek" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_Seek_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SeekResponse" />
+  </wsdl:message>
   <wsdl:message name="PlayerControlService_Subscribe_InputMessage">
     <wsdl:part name="parameters" element="tns:Subscribe" />
   </wsdl:message>
@@ -32,6 +50,9 @@
   </wsdl:message>
   <wsdl:message name="PlayerControlService_OnTrackChanged_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnTrackChanged" />
+  </wsdl:message>
+  <wsdl:message name="PlayerControlService_OnTrackComplete_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnTrackComplete" />
   </wsdl:message>
   <wsdl:message name="PlayerControlService_OnElapsed_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnElapsed" />
@@ -48,6 +69,18 @@
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/TogglePause" message="tns:PlayerControlService_TogglePause_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/TogglePauseResponse" message="tns:PlayerControlService_TogglePause_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SetVolume">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/SetVolume" message="tns:PlayerControlService_SetVolume_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/SetVolumeResponse" message="tns:PlayerControlService_SetVolume_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVolume">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/GetVolume" message="tns:PlayerControlService_GetVolume_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/GetVolumeResponse" message="tns:PlayerControlService_GetVolume_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Seek">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/Seek" message="tns:PlayerControlService_Seek_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/SeekResponse" message="tns:PlayerControlService_Seek_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Subscribe">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/Subscribe" message="tns:PlayerControlService_Subscribe_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/SubscribeResponse" message="tns:PlayerControlService_Subscribe_OutputMessage" />
@@ -58,6 +91,9 @@
     </wsdl:operation>
     <wsdl:operation name="OnTrackChanged">
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/OnTrackChanged" message="tns:PlayerControlService_OnTrackChanged_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnTrackComplete">
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/OnTrackComplete" message="tns:PlayerControlService_OnTrackComplete_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnElapsed">
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/OnElapsed" message="tns:PlayerControlService_OnElapsed_OutputCallbackMessage" />
