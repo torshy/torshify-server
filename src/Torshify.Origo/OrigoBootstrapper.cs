@@ -5,14 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+
 using AutoMapper;
-using Torshify.Origo.Audio;
-using Torshify.Origo.Contracts.V1;
-using Torshify.Origo.Contracts.V1.Query;
-using Torshify.Origo.Services.V1.Image;
-using Torshify.Origo.Services.V1.Player;
-using Torshify.Origo.Services.V1.Playlists;
-using Torshify.Origo.Services.V1.Query;
+
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -22,10 +17,17 @@ using log4net.Repository.Hierarchy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 
+using Torshify.Origo.Audio;
+using Torshify.Origo.Contracts.V1;
+using Torshify.Origo.Contracts.V1.Query;
+using Torshify.Origo.Extensions;
 using Torshify.Origo.Interfaces;
+using Torshify.Origo.Services.V1.Image;
+using Torshify.Origo.Services.V1.Player;
+using Torshify.Origo.Services.V1.Playlists;
+using Torshify.Origo.Services.V1.Query;
 
 using WcfContrib.Hosting;
-using Torshify.Origo.Extensions;
 
 namespace Torshify.Origo
 {
@@ -43,25 +45,25 @@ namespace Torshify.Origo
 
         #region Properties
 
-        public string Password
-        {
-            get;
-            set;
-        }
-
-        public string UserName
-        {
-            get;
-            set;
-        }
-
         public int HttpPort
         {
             get;
             set;
         }
 
+        public string Password
+        {
+            get;
+            set;
+        }
+
         public int TcpPort
+        {
+            get;
+            set;
+        }
+
+        public string UserName
         {
             get;
             set;
@@ -140,6 +142,39 @@ namespace Torshify.Origo
             return host;
         }
 
+        private void InitializeAutoMapper()
+        {
+            Mapper.CreateMap<ILink, string>().ConvertUsing(link => { using (link)return link.AsUri(); });
+
+            Mapper.CreateMap<IArtist, Artist>()
+                .ForMember(dest => dest.PortraitID, opt => opt.MapFrom(src => src.PortraitId))
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())));
+
+            Mapper.CreateMap<IAlbum, Album>()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => Convert.ToString(src.Type)))
+                .ForMember(dest => dest.CoverID, opt => opt.MapFrom(src => Convert.ToString(src.CoverId)));
+
+            Mapper.CreateMap<ITrack, Track>()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration.TotalMilliseconds))
+                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)));
+
+            Mapper.CreateMap<IPlaylist, Playlist>()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
+                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)))
+                .ForMember(dest => dest.ImageID, opt => opt.MapFrom(src => src.ImageId));
+
+            Mapper.CreateMap<IArtistBrowse, ArtistBrowseResult>()
+                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
+                .ForMember(dest => dest.Portraits, opt => opt.MapFrom(src => ToStringList(src.Portraits)));
+
+            Mapper.CreateMap<IAlbumBrowse, AlbumBrowseResult>()
+                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds));
+
+            Mapper.CreateMap<ISearch, QueryResult>();
+        }
+
         private void InitializeContainer()
         {
             Container = new UnityContainer();
@@ -153,7 +188,8 @@ namespace Torshify.Origo
         private void InitializeLogging()
         {
             var fileAppender = new RollingFileAppender();
-            fileAppender.File = Path.Combine(Constants.LogFolder, Assembly.GetEntryAssembly().GetName().Name + ".log");
+            var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            fileAppender.File = Path.Combine(Constants.LogFolder, assembly.GetName().Name + ".log");
             fileAppender.AppendToFile = true;
             fileAppender.MaxSizeRollBackups = 10;
             fileAppender.MaxFileSize = 1024 * 1024;
@@ -196,11 +232,11 @@ namespace Torshify.Origo
                     Level = Level.Info
                 });
             consoleAppender.Layout = new PatternLayout("%date{dd MM HH:mm} %-5level - %message%newline");
-#if DEBUG
+            #if DEBUG
             consoleAppender.Threshold = Level.All;
-#else
+            #else
             consoleAppender.Threshold = Level.Info;
-#endif
+            #endif
             consoleAppender.ActivateOptions();
 
             Logger root;
@@ -316,40 +352,17 @@ namespace Torshify.Origo
             }
         }
 
-        private void InitializeAutoMapper()
+        private void InitializeStartables()
         {
-            Mapper.CreateMap<ILink, string>().ConvertUsing(link => { using (link)return link.AsUri(); });
+            var startables = Container.ResolveAll<IStartable>();
 
-            Mapper.CreateMap<IArtist, Artist>()
-                .ForMember(dest => dest.PortraitID, opt => opt.MapFrom(src => src.PortraitId))
-                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())));
-
-            Mapper.CreateMap<IAlbum, Album>()
-                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => Convert.ToString(src.Type)))
-                .ForMember(dest => dest.CoverID, opt => opt.MapFrom(src => Convert.ToString(src.CoverId)));
-
-            Mapper.CreateMap<ITrack, Track>()
-                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration.TotalMilliseconds))
-                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)));
-
-            Mapper.CreateMap<IPlaylist, Playlist>()
-                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
-                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)))
-                .ForMember(dest => dest.ImageID, opt => opt.MapFrom(src => src.ImageId));
-
-            Mapper.CreateMap<IArtistBrowse, ArtistBrowseResult>()
-                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
-                .ForMember(dest => dest.Portraits, opt => opt.MapFrom(src => ToStringList(src.Portraits)));
-
-            Mapper.CreateMap<IAlbumBrowse, AlbumBrowseResult>()
-                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds));
-
-            Mapper.CreateMap<ISearch, QueryResult>();
+            foreach (var startable in startables)
+            {
+                startable.Start();
+            }
         }
 
-        private IEnumerable<string> ToStringList(IArray<IImage> portraits)
+        private IEnumerable<string> ToStringList(IEnumerable<IImage> portraits)
         {
             foreach (var portrait in portraits)
             {
@@ -359,16 +372,6 @@ namespace Torshify.Origo
                 {
                     yield return portrait.ImageId;
                 }
-            }
-        }
-
-        private void InitializeStartables()
-        {
-            var startables = Container.ResolveAll<IStartable>();
-
-            foreach (var startable in startables)
-            {
-                startable.Start();
             }
         }
 

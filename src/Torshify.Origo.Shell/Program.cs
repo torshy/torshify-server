@@ -12,8 +12,8 @@ namespace Torshify.Origo.Shell
             PlaylistPlayerServiceClient player = new PlaylistPlayerServiceClient();
             player.Initialize(new[]
                                   {
-                                      "spotify:track:50JVjWk5JwoJsIQLcqHftd", 
-                                      "spotify:track:2lvILTIWBbzFeHF95zSWoF"
+                                      "spotify:track:2lvILTIWBbzFeHF95zSWoF",
+                                      "spotify:track:50JVjWk5JwoJsIQLcqHftd"
                                   });
             Console.ReadLine();
         }
