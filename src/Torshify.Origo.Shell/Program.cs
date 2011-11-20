@@ -10,7 +10,11 @@ namespace Torshify.Origo.Shell
         {
             //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
             PlaylistPlayerServiceClient player = new PlaylistPlayerServiceClient();
-            player.Initialize("spotify:track:2lvILTIWBbzFeHF95zSWoF");
+            player.Initialize(new[]
+                                  {
+                                      "spotify:track:50JVjWk5JwoJsIQLcqHftd", 
+                                      "spotify:track:2lvILTIWBbzFeHF95zSWoF"
+                                  });
             Console.ReadLine();
         }
 

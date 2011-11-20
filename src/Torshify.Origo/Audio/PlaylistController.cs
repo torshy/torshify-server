@@ -25,19 +25,46 @@ namespace Torshify.Origo.Audio
         {
             _session = session;
             _musicPlayerController = musicPlayerController;
+            _musicPlayerController.TrackComplete += OnTrackComplete;
             _playlist = new Playlist<PlaylistTrack>();
             _playlist.CurrentChanged += OnPlaylistCurrentChanged;
         }
 
         #endregion Constructors
 
-        #region Methods
+        #region Properties
+
+        public PlaylistTrack Current
+        {
+            get { return _playlist.Current; }
+        }
 
         public bool Repeat
         {
             get { return _playlist.Repeat; }
             set { _playlist.Repeat = value; }
         }
+
+        public PlaylistTrack[] Sequence
+        {
+            get { return _playlist.Sequence.ToArray(); }
+        }
+
+        public bool Shuffle
+        {
+            get
+            {
+                return _playlist.Shuffle;
+            }
+            set
+            {
+                _playlist.Shuffle = value;
+            }
+        }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Enqueue(string[] linkIds)
         {
@@ -71,28 +98,6 @@ namespace Torshify.Origo.Audio
         public void Previous()
         {
             _playlist.Previous();
-        }
-
-        public PlaylistTrack Current
-        {
-            get { return _playlist.Current; }
-        }
-
-        public PlaylistTrack[] Sequence
-        {
-            get { return _playlist.Sequence.ToArray(); }
-        }
-
-        public bool Shuffle
-        {
-            get
-            {
-                return _playlist.Shuffle;
-            }
-            set
-            {
-                _playlist.Shuffle = value;
-            }
         }
 
         private IEnumerable<Track> GetTracks(string linkId)
@@ -164,7 +169,11 @@ namespace Torshify.Origo.Audio
             }
         }
 
+        private void OnTrackComplete(object sender, EventArgs e)
+        {
+            Next();
+        }
+
         #endregion Methods
     }
-
 }

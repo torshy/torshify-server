@@ -100,6 +100,9 @@
     <None Include="Service References\PlayerControlService\v1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\PlaylistPlayerService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PlaylistPlayerService\service.wsdl" />
     <None Include="Service References\PlaylistPlayerService\service.xsd">
       <SubType>Designer</SubType>
