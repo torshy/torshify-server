@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ServiceModel;
+using Torshify.Origo.Shell.PlayerControlService;
 using Torshify.Origo.Shell.PlaylistPlayerService;
 using Torshify.Origo.Shell.QueryService;
+using Track = Torshify.Origo.Shell.PlayerControlService.Track;
 
 namespace Torshify.Origo.Shell
 {
@@ -9,12 +12,18 @@ namespace Torshify.Origo.Shell
         static void Main(string[] args)
         {
             //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
+
+            PlayerControlServiceClient control = new PlayerControlServiceClient(new InstanceContext(new MyPlayerControlCallbacks()));
+            control.Subscribe();
+
             PlaylistPlayerServiceClient player = new PlaylistPlayerServiceClient();
             player.Initialize(new[]
                                   {
                                       "spotify:track:2lvILTIWBbzFeHF95zSWoF",
                                       "spotify:track:50JVjWk5JwoJsIQLcqHftd"
                                   });
+
+            control.SetVolume(0.01f);
             Console.ReadLine();
         }
 
@@ -33,6 +42,34 @@ namespace Torshify.Origo.Shell
             }
 
             query.Close();
+        }
+
+        public class MyPlayerControlCallbacks : PlayerControlServiceCallback
+        {
+            public void OnTrackChanged(Track track)
+            {
+                Console.WriteLine("Track changed to " + track.Name);
+            }
+
+            public void OnTrackComplete(Track track)
+            {
+                Console.WriteLine("Track complete (" + track.Name + ")");
+            }
+
+            public void OnElapsed(double elapsedMs, double totalMs)
+            {
+                
+            }
+
+            public void OnPlayStateChanged(bool isPlaying)
+            {
+                
+            }
+
+            public void OnVolumeChanged(float volume)
+            {
+                Console.WriteLine("Volume changed: " + volume);
+            }
         }
     }
 }

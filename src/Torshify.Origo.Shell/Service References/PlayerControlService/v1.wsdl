@@ -60,6 +60,9 @@
   <wsdl:message name="PlayerControlService_OnPlayStateChanged_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPlayStateChanged" />
   </wsdl:message>
+  <wsdl:message name="PlayerControlService_OnVolumeChanged_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnVolumeChanged" />
+  </wsdl:message>
   <wsdl:portType name="PlayerControlService">
     <wsdl:operation name="GetStatus">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlayerControlService/GetStatus" message="tns:PlayerControlService_GetStatus_InputMessage" />
@@ -100,6 +103,9 @@
     </wsdl:operation>
     <wsdl:operation name="OnPlayStateChanged">
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/OnPlayStateChanged" message="tns:PlayerControlService_OnPlayStateChanged_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnVolumeChanged">
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlayerControlService/OnVolumeChanged" message="tns:PlayerControlService_OnVolumeChanged_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

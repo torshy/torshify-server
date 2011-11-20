@@ -185,6 +185,7 @@ namespace Torshify.Origo.Services.V1.Player
                 _log.Error(exception.Message, exception);
             }
         }
+
         #endregion Methods
     }
 }

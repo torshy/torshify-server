@@ -10,6 +10,7 @@ namespace Torshify.Origo.Audio
     {
         #region Fields
 
+        private float _volume = 0.2f;
         private WaveOut _waveOut;
         private BufferedWaveProvider _waveProvider;
 
@@ -19,22 +20,8 @@ namespace Torshify.Origo.Audio
 
         public float Volume
         {
-            get
-            {
-                if (_waveOut != null)
-                {
-                    return _waveOut.Volume;
-                }
-
-                return 0.0f;
-            }
-            set
-            {
-                if (_waveOut != null)
-                {
-                    _waveOut.Volume = value;
-                }
-            }
+            get { return _volume; }
+            set { _volume = value; }
         }
 
         #endregion Properties
@@ -70,12 +57,11 @@ namespace Torshify.Origo.Audio
                 _waveProvider.BufferDuration = TimeSpan.FromSeconds(1);
                 _waveOut.Init(_waveProvider);
                 _waveOut.Play();
-
-                Volume = 0.2f;
             }
 
             if ((_waveProvider.BufferLength - _waveProvider.BufferedBytes) > samples.Length)
             {
+                _waveOut.Volume = _volume;
                 _waveProvider.AddSamples(samples, 0, samples.Length);
                 consumed = frames;
             }
