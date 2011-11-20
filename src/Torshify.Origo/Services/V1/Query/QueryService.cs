@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
+using Torshify.Origo.Contracts.V1;
 using Torshify.Origo.Contracts.V1.Query;
 using Torshify.Origo.Extensions;
 
@@ -124,6 +125,22 @@ namespace Torshify.Origo.Services.V1.Query
         public ArtistBrowseResult EndArtistBrowse(IAsyncResult result)
         {
             return ((Task<ArtistBrowseResult>)result).Result;
+        }
+
+        public Playlist GetPlaylist(string link)
+        {
+            var session = ServiceLocator.Current.Resolve<ISession>();
+            var linkObject = session.FromLink<IPlaylist>(link);
+
+            if (linkObject != null)
+            {
+                using(linkObject)
+                {
+                    return Convertion.ConvertToDto(linkObject.Object);
+                }
+            }
+
+            return null;
         }
 
         #endregion Methods

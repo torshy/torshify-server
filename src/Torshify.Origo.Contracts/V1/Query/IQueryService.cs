@@ -44,5 +44,8 @@ namespace Torshify.Origo.Contracts.V1.Query
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginArtistBrowse(string artistId, ArtistBrowsingType type, AsyncCallback callback, object state);
         ArtistBrowseResult EndArtistBrowse(IAsyncResult result);
+
+        [OperationContract]
+        Playlist GetPlaylist(string link);
     }
 }
