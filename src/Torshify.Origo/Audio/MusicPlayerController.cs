@@ -44,12 +44,14 @@ namespace Torshify.Origo.Audio
         #region Events
 
         public event EventHandler CurrentTrackChanged;
-        
+
         public event EventHandler TrackComplete;
 
         public event EventHandler ElapsedChanged;
 
         public event EventHandler IsPlayingChanged;
+
+        public event EventHandler VolumeChanged;
 
         #endregion Events
 
@@ -113,6 +115,7 @@ namespace Torshify.Origo.Audio
             set
             {
                 _musicPlayer.Volume = value;
+                OnVolumeChanged();
             }
         }
 
@@ -216,6 +219,16 @@ namespace Torshify.Origo.Audio
         private void OnTrackComplete()
         {
             var handler = TrackComplete;
+
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnVolumeChanged()
+        {
+            var handler = VolumeChanged;
 
             if (handler != null)
             {

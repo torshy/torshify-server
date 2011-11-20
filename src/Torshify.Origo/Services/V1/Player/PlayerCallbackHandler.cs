@@ -37,6 +37,7 @@ namespace Torshify.Origo.Services.V1.Player
             _playerController.ElapsedChanged += OnElapsedChanged;
             _playerController.IsPlayingChanged += OnIsPlayingChanged;
             _playerController.TrackComplete += OnTrackComplete;
+            _playerController.VolumeChanged += OnVolumeChanged;
         }
 
         public bool Register(IPlayerCallback callback)
@@ -168,6 +169,22 @@ namespace Torshify.Origo.Services.V1.Player
             }
         }
 
+        private void OnVolumeChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                float volume = _playerController.Volume;
+
+                ThreadPool.QueueUserWorkItem(
+                    state => Execute(
+                        callback =>
+                        callback.OnVolumeChanged(volume)));
+            }
+            catch (Exception exception)
+            {
+                _log.Error(exception.Message, exception);
+            }
+        }
         #endregion Methods
     }
 }

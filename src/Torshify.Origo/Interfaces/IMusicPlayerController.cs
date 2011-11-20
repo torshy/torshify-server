@@ -16,6 +16,8 @@ namespace Torshify.Origo.Interfaces
 
         event EventHandler IsPlayingChanged;
 
+        event EventHandler VolumeChanged;
+
         #endregion Events
 
         #region Properties
