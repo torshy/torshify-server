@@ -3,6 +3,7 @@ using System.Threading;
 using System.Timers;
 
 using Microsoft.Practices.ServiceLocation;
+
 using Torshify.Origo.Contracts.V1;
 using Torshify.Origo.Extensions;
 using Torshify.Origo.Interfaces;
@@ -20,6 +21,7 @@ namespace Torshify.Origo.Audio
 
         private Track _currentTrack;
         private TimeSpan _elapsed;
+        private bool _hasReachedEndOfTrack;
         private bool _isPlaying;
         private Timer _timer;
 
@@ -31,6 +33,7 @@ namespace Torshify.Origo.Audio
         {
             _musicPlayer = musicPlayer;
             _session = session;
+            _session.EndOfTrack += OnEndOfTrack;
             _timer = new Timer();
             _timer.Elapsed += OnTimerElapsed;
             _timer.Interval = 100;
@@ -41,6 +44,8 @@ namespace Torshify.Origo.Audio
         #region Events
 
         public event EventHandler CurrentTrackChanged;
+        
+        public event EventHandler TrackComplete;
 
         public event EventHandler ElapsedChanged;
 
@@ -115,9 +120,15 @@ namespace Torshify.Origo.Audio
 
         #region Methods
 
+        void IStartable.Start()
+        {
+            _session.MusicDeliver += OnMusicDeliver;
+        }
+
         public void Play(string trackId)
         {
             IsPlaying = false;
+            _hasReachedEndOfTrack = false;
 
             var session = ServiceLocator.Current.Resolve<ISession>();
             using (var link = session.FromLink<ITrackAndOffset>(trackId))
@@ -162,9 +173,9 @@ namespace Torshify.Origo.Audio
             }
         }
 
-        public void Start()
+        public void Seek(TimeSpan timeSpan)
         {
-            _session.MusicDeliver += OnMusicDeliver;
+            _session.PlayerSeek(timeSpan);
         }
 
         private void OnCurrentTrackChanged()
@@ -187,9 +198,24 @@ namespace Torshify.Origo.Audio
             }
         }
 
+        private void OnEndOfTrack(object sender, SessionEventArgs e)
+        {
+            _hasReachedEndOfTrack = true;
+        }
+
         private void OnIsPlayingChanged()
         {
             var handler = IsPlayingChanged;
+
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnTrackComplete()
+        {
+            var handler = TrackComplete;
 
             if (handler != null)
             {
@@ -210,6 +236,12 @@ namespace Torshify.Origo.Audio
             if (_musicPlayer.GetBufferLength() == 0)
             {
                 IsPlaying = false;
+
+                if (_hasReachedEndOfTrack)
+                {
+                    OnTrackComplete();
+                    _hasReachedEndOfTrack = false;
+                }
             }
         }
 

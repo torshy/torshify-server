@@ -8,9 +8,9 @@ namespace Torshify.Origo.Contracts.V1.Player
     public interface IPlaylistPlayerService
     {
         [OperationContract]
-        void Initialize(string link);
+        void Initialize(string[] links);
         [OperationContract]
-        void Enqueue(string link);
+        void Enqueue(string[] links);
         [OperationContract]
         void Next();
         [OperationContract]

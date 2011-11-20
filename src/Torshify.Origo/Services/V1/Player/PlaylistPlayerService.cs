@@ -11,13 +11,13 @@ namespace Torshify.Origo.Services.V1.Player
     [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class PlaylistPlayerService : IPlaylistPlayerService
     {
-        public void Initialize(string linkId)
+        public void Initialize(string[] linkId)
         {
             var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
             playlistController.Initialize(linkId);
         }
 
-        public void Enqueue(string linkId)
+        public void Enqueue(string[] linkId)
         {
             var playlistController = ServiceLocator.Current.Resolve<IPlaylistController>();
             playlistController.Enqueue(linkId);

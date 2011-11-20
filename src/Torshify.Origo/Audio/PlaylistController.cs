@@ -39,20 +39,28 @@ namespace Torshify.Origo.Audio
             set { _playlist.Repeat = value; }
         }
 
-        public void Enqueue(string linkId)
+        public void Enqueue(string[] linkIds)
         {
-            var tracks = GetTracks(linkId).ToArray();
-            var tracksToEnqueue = tracks.Select(t => new PlaylistTrack {Track = t, IsQueued = true}).ToArray();
+            foreach (var linkId in linkIds)
+            {
+                var tracks = GetTracks(linkId).ToArray();
+                var tracksToEnqueue = tracks.Select(t => new PlaylistTrack { Track = t, IsQueued = true }).ToArray();
 
-            _playlist.Enqueue(tracksToEnqueue);
+                _playlist.Enqueue(tracksToEnqueue);
+            }
         }
 
-        public void Initialize(string linkId)
+        public void Initialize(string[] linkIds)
         {
-            var tracks = GetTracks(linkId).ToArray();
-            var trackToInitialize = tracks.Select(t => new PlaylistTrack { Track = t }).ToArray();
+            List<PlaylistTrack> trackToInitialize = new List<PlaylistTrack>();
 
-            _playlist.Initialize(trackToInitialize);
+            foreach (var linkId in linkIds)
+            {
+                var tracks = GetTracks(linkId).ToArray();
+                trackToInitialize.AddRange(tracks.Select(t => new PlaylistTrack {Track = t}).ToArray());
+            }
+
+            _playlist.Initialize(trackToInitialize.ToArray());
         }
 
         public void Next()

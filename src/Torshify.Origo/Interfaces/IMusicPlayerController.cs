@@ -10,6 +10,8 @@ namespace Torshify.Origo.Interfaces
 
         event EventHandler CurrentTrackChanged;
 
+        event EventHandler TrackComplete;
+
         event EventHandler ElapsedChanged;
 
         event EventHandler IsPlayingChanged;
@@ -46,6 +48,8 @@ namespace Torshify.Origo.Interfaces
         void Play(string trackId);
 
         void TogglePause();
+
+        void Seek(TimeSpan timeSpan);
 
         #endregion Methods
     }

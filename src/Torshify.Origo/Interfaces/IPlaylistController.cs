@@ -32,9 +32,9 @@ namespace Torshify.Origo.Interfaces
 
         #region Methods
 
-        void Enqueue(string linkId);
+        void Enqueue(string[] linkId);
 
-        void Initialize(string linkId);
+        void Initialize(string[] linkId);
 
         void Next();
 

@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 
 using Microsoft.Practices.ServiceLocation;
 using Torshify.Origo.Contracts.V1;
@@ -31,6 +32,24 @@ namespace Torshify.Origo.Services.V1.Player
         {
             var musicPlayerController = ServiceLocator.Current.Resolve<IMusicPlayerController>();
             musicPlayerController.TogglePause();
+        }
+
+        public void SetVolume(float volume)
+        {
+            var musicPlayerController = ServiceLocator.Current.Resolve<IMusicPlayerController>();
+            musicPlayerController.Volume = volume;
+        }
+
+        public float GetVolume()
+        {
+            var musicPlayerController = ServiceLocator.Current.Resolve<IMusicPlayerController>();
+            return musicPlayerController.Volume;
+        }
+
+        public void Seek(double milliseconds)
+        {
+            var musicPlayerController = ServiceLocator.Current.Resolve<IMusicPlayerController>();
+            musicPlayerController.Seek(TimeSpan.FromMilliseconds(milliseconds));
         }
 
         public void Subscribe()

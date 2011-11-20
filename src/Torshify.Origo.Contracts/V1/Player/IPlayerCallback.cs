@@ -8,6 +8,9 @@ namespace Torshify.Origo.Contracts.V1.Player
         void OnTrackChanged(Track track);
 
         [OperationContract(IsOneWay = true)]
+        void OnTrackComplete(Track track);
+
+        [OperationContract(IsOneWay = true)]
         void OnElapsed(double elapsedMs, double totalMs);
 
         [OperationContract(IsOneWay = true)]

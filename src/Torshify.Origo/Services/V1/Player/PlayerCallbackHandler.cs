@@ -36,6 +36,7 @@ namespace Torshify.Origo.Services.V1.Player
             _playerController.CurrentTrackChanged += OnCurrentTrackChanged;
             _playerController.ElapsedChanged += OnElapsedChanged;
             _playerController.IsPlayingChanged += OnIsPlayingChanged;
+            _playerController.TrackComplete += OnTrackComplete;
         }
 
         public bool Register(IPlayerCallback callback)
@@ -88,6 +89,26 @@ namespace Torshify.Origo.Services.V1.Player
             foreach (var faultedClient in faultedClients)
             {
                 Unregister(faultedClient);
+            }
+        }
+
+        private void OnTrackComplete(object sender, EventArgs e)
+        {
+            try
+            {
+                var currentTrack = _playerController.CurrentTrack;
+
+                if (currentTrack != null)
+                {
+                    ThreadPool.QueueUserWorkItem(
+                        state => Execute(
+                            callback =>
+                            callback.OnTrackComplete(currentTrack)));
+                }
+            }
+            catch (Exception exception)
+            {
+                _log.Error(exception.Message, exception);
             }
         }
 

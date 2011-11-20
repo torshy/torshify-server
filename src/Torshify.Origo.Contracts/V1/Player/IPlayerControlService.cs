@@ -13,6 +13,12 @@ namespace Torshify.Origo.Contracts.V1.Player
         [OperationContract]
         void TogglePause();
         [OperationContract]
+        void SetVolume(float volume);
+        [OperationContract]
+        float GetVolume();
+        [OperationContract]
+        void Seek(double milliseconds);
+        [OperationContract]
         void Subscribe();
         [OperationContract]
         void Unsubscribe();
