@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.ServiceModel;
+using System.ServiceModel.Web;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Practices.ServiceLocation;
@@ -23,16 +25,16 @@ namespace Torshify.Origo.Services.V1.Image
             }
 
             var session = ServiceLocator.Current.Resolve<ISession>();
-            var trackLink = session.FromLink<ITrackAndOffset>(link);
+            var trackLink = session.FromLink<IAlbum>(link);
             if (trackLink != null)
             {
                 using (trackLink)
                 {
-                    using (trackLink.Object.Track)
+                    using (trackLink.Object)
                     {
-                        using (trackLink.Object.Track.Album)
+                        using (trackLink.Object)
                         {
-                            return BeginGetImage(trackLink.Object.Track.Album.CoverId, callback, state);
+                            return BeginGetImage(trackLink.Object.CoverId, callback, state);
                         }
                     }
                 }
@@ -120,7 +122,33 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetAlbumImage(string link)
         {
-            throw new System.NotImplementedException();
+            if (WebOperationContext.Current != null)
+            {
+                WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
+            }
+
+            if (string.IsNullOrEmpty(link))
+            {
+                return new MemoryStream();
+            }
+
+            var session = ServiceLocator.Current.Resolve<ISession>();
+            var trackLink = session.FromLink<IAlbum>(link);
+            if (trackLink != null)
+            {
+                using (trackLink)
+                {
+                    using (trackLink.Object)
+                    {
+                        using (trackLink.Object)
+                        {
+                            return GetImage(trackLink.Object.CoverId);
+                        }
+                    }
+                }
+            }
+
+            return new MemoryStream();
         }
 
         public Stream GetArtistImage(string link)
@@ -145,9 +173,14 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetImage(string link)
         {
+            if (WebOperationContext.Current != null)
+            {
+                WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
+            }
+
             if (string.IsNullOrEmpty(link))
             {
-                return new MemoryStream(); ;
+                return new MemoryStream();
             }
 
             return GetImageTask(link).Result;
@@ -155,9 +188,14 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetTrackImage(string link)
         {
+            if (WebOperationContext.Current != null)
+            {
+                WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
+            }
+
             if (string.IsNullOrEmpty(link))
             {
-                return null;
+                return new MemoryStream();
             }
 
             var session = ServiceLocator.Current.Resolve<ISession>();
@@ -177,7 +215,7 @@ namespace Torshify.Origo.Services.V1.Image
                 }
             }
 
-            return null;
+            return new MemoryStream();
         }
 
         private Task<MemoryStream> GetImageTask(string link)
@@ -189,6 +227,11 @@ namespace Torshify.Origo.Services.V1.Image
                 {
                     using (t.Result)
                     {
+                        while(t.Result.Error == Error.IsLoading)
+                        {
+                            Thread.Yield();
+                        }
+
                         return new MemoryStream(t.Result.Data);
                     }
                 });

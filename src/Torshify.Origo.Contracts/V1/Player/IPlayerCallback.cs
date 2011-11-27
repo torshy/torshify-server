@@ -18,5 +18,8 @@ namespace Torshify.Origo.Contracts.V1.Player
 
         [OperationContract(IsOneWay = true)]
         void OnVolumeChanged(float volume);
+
+        [OperationContract(IsOneWay = true)]
+        void OnPing();
     }
 }

@@ -263,6 +263,7 @@ namespace Torshify.Origo
                 CreateNetTcpServiceHost<TrackPlayerService>("torshify/v1/trackplayer"),
                 CreateNetTcpServiceHost<PlaylistPlayerService>("torshify/v1/playlistplayer"),
                 CreateNetTcpServiceHost<ImageService>("torshify/v1/image"),
+                CreateWebHttpServiceHost<ImageService>("torshify/v1/image"),
                 CreateNetTcpServiceHost<PlaylistService>("torshify/v1/playlist")
             };
 

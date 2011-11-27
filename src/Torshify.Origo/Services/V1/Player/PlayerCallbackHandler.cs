@@ -47,6 +47,7 @@ namespace Torshify.Origo.Services.V1.Player
                 if (!_callbacks.Contains(callback))
                 {
                     _callbacks.Add(callback);
+                    KeepAliveManager.Instance.Register(callback.OnPing);
                     return true;
                 }
             }
@@ -58,6 +59,7 @@ namespace Torshify.Origo.Services.V1.Player
         {
             lock (_callbacksLock)
             {
+                KeepAliveManager.Instance.Register(callback.OnPing);
                 return _callbacks.Remove(callback);
             }
         }
@@ -178,7 +180,7 @@ namespace Torshify.Origo.Services.V1.Player
                 ThreadPool.QueueUserWorkItem(
                     state => Execute(
                         callback =>
-                        callback.OnVolumeChanged(volume)));
+                        callback.OnVolumeChanged((float)state)), volume);
             }
             catch (Exception exception)
             {

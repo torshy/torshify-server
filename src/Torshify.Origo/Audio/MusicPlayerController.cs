@@ -133,8 +133,7 @@ namespace Torshify.Origo.Audio
             IsPlaying = false;
             _hasReachedEndOfTrack = false;
 
-            var session = ServiceLocator.Current.Resolve<ISession>();
-            using (var link = session.FromLink<ITrackAndOffset>(trackId))
+            using (var link = _session.FromLink<ITrackAndOffset>(trackId))
             {
                 using (var track = link.Object.Track)
                 {
@@ -146,10 +145,10 @@ namespace Torshify.Origo.Audio
                     CurrentTrack = AutoMapper.Mapper.Map<ITrack, Track>(track);
                     Elapsed = TimeSpan.Zero;
 
-                    var status = session.PlayerLoad(track);
+                    var status = _session.PlayerLoad(track);
                     if (status == Error.OK)
                     {
-                        session.PlayerPlay();
+                        _session.PlayerPlay();
                     }
                     else
                     {
@@ -168,11 +167,11 @@ namespace Torshify.Origo.Audio
 
             if (IsPlaying)
             {
-                _musicPlayer.Play();
+                _session.PlayerPause();
             }
             else
             {
-                _musicPlayer.Play();
+                _session.PlayerPlay();
             }
         }
 
