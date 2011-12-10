@@ -142,17 +142,24 @@ namespace Torshify.Origo.Audio
                         Thread.Yield();
                     }
 
-                    CurrentTrack = AutoMapper.Mapper.Map<ITrack, Track>(track);
-                    Elapsed = TimeSpan.Zero;
-
-                    var status = _session.PlayerLoad(track);
-                    if (status == Error.OK)
+                    if (track.Availability == TrackAvailablity.Available)
                     {
-                        _session.PlayerPlay();
+                        CurrentTrack = AutoMapper.Mapper.Map<ITrack, Track>(track);
+                        Elapsed = TimeSpan.Zero;
+
+                        var status = _session.PlayerLoad(track);
+                        if (status == Error.OK)
+                        {
+                            _session.PlayerPlay();
+                        }
+                        else
+                        {
+                            throw new Exception(status.GetMessage());
+                        }
                     }
                     else
                     {
-                        throw new Exception(status.GetMessage());
+                        throw new InvalidOperationException(track.Availability.ToString());
                     }
                 }
             }
