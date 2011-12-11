@@ -4,9 +4,16 @@ namespace Torshify.Origo.Contracts.V1.Login
 {
     [ServiceContract(
         Name = "LoginService",
-        Namespace = "http://schemas.torshify/v1")]
+        Namespace = "http://schemas.torshify/v1",
+        CallbackContract = typeof(ILoginCallback))]
     public interface ILoginService
     {
+        [OperationContract]
+        void Subscribe();
+
+        [OperationContract]
+        void Unsubscribe();
+
         [OperationContract]
         bool IsLoggedIn();
 

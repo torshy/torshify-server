@@ -15,7 +15,7 @@ namespace Torshify.Origo.Shell
             //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
 
             LoginServiceClient login = new LoginServiceClient();
-            login.Login(ENTER USERNAME HERE, ENTER PASSWORD HERE, false);
+            //login.Login(ENTER USERNAME HERE, ENTER PASSWORD HERE, false);
 
             PlayerControlServiceClient control = new PlayerControlServiceClient(new InstanceContext(new MyPlayerControlCallbacks()));
             control.Subscribe();

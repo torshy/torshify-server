@@ -11,6 +11,18 @@ namespace Torshify.Origo.Services.V1.Login
     [ServiceBehavior(UseSynchronizationContext = false)]
     public class LoginService : ILoginService
     {
+        public void Subscribe()
+        {
+            var callbackHandler = ServiceLocator.Current.Resolve<LoginCallbackHandler>();
+            callbackHandler.Register(OperationContext.Current.GetCallbackChannel<ILoginCallback>());
+        }
+
+        public void Unsubscribe()
+        {
+            var callbackHandler = ServiceLocator.Current.Resolve<LoginCallbackHandler>();
+            callbackHandler.Unregister(OperationContext.Current.GetCallbackChannel<ILoginCallback>());
+        }
+
         public bool IsLoggedIn()
         {
             var session = ServiceLocator.Current.Resolve<ISession>();
@@ -27,10 +39,7 @@ namespace Torshify.Origo.Services.V1.Login
         public void Login(string userName, string password, bool remember)
         {
             var session = ServiceLocator.Current.Resolve<ISession>();
-            ManualResetEventSlim wait = new ManualResetEventSlim();
-            session.LoginComplete += (sender, args) => wait.Set();
             session.Login(userName, password, remember);
-            wait.Wait(5000);
         }
 
         public void ForgetRememberedUser()

@@ -182,6 +182,7 @@ namespace Torshify.Origo
             Container.RegisterType<IMusicPlayer, NAudioMusicPlayer>(new ContainerControlledLifetimeManager());
             Container.RegisterStartable<IMusicPlayerController, MusicPlayerController>();
             Container.RegisterStartable<PlayerCallbackHandler, PlayerCallbackHandler>();
+            Container.RegisterStartable<LoginCallbackHandler, LoginCallbackHandler>();
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(Container));
         }
 
