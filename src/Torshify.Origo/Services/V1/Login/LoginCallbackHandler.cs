@@ -24,6 +24,7 @@ namespace Torshify.Origo.Services.V1.Login
         public LoginCallbackHandler(ISession session)
         {
             _session = session;
+            _callbacks = new List<ILoginCallback>();
         }
 
         #endregion Constructors
