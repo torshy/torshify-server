@@ -26,6 +26,12 @@
   <wsdl:message name="QueryService_ArtistBrowse_OutputMessage">
     <wsdl:part name="parameters" element="tns:ArtistBrowseResponse" />
   </wsdl:message>
+  <wsdl:message name="QueryService_GetPlaylist_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlaylist" />
+  </wsdl:message>
+  <wsdl:message name="QueryService_GetPlaylist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlaylistResponse" />
+  </wsdl:message>
   <wsdl:portType name="QueryService">
     <wsdl:operation name="Query">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/QueryService/Query" message="tns:QueryService_Query_InputMessage" />
@@ -38,6 +44,10 @@
     <wsdl:operation name="ArtistBrowse">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/QueryService/ArtistBrowse" message="tns:QueryService_ArtistBrowse_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/QueryService/ArtistBrowseResponse" message="tns:QueryService_ArtistBrowse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlaylist">
+      <wsdl:input wsaw:Action="http://schemas.torshify/v1/QueryService/GetPlaylist" message="tns:QueryService_GetPlaylist_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.torshify/v1/QueryService/GetPlaylistResponse" message="tns:QueryService_GetPlaylist_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

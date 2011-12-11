@@ -9,10 +9,15 @@ namespace Torshify.Origo.Contracts.V1.Playlists
     public interface IPlaylistService
     {
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Subscribe();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Unsubscribe();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         Playlist[] GetPlaylists();
     }
 }

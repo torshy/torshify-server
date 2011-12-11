@@ -588,6 +588,9 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/PlayerControlService/OnVolumeChanged")]
         void OnVolumeChanged(float volume);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/PlayerControlService/OnPing")]
+        void OnPing();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

@@ -38,6 +38,8 @@
   <ItemGroup>
     <Compile Include="V1\Album.cs" />
     <Compile Include="V1\Image\IImageService.cs" />
+    <Compile Include="V1\Login\ILoginService.cs" />
+    <Compile Include="V1\NotLoggedInFault.cs" />
     <Compile Include="V1\Player\IPlayerCallback.cs" />
     <Compile Include="V1\Player\IPlayerControlService.cs" />
     <Compile Include="V1\Player\IPlaylistPlayerService.cs" />

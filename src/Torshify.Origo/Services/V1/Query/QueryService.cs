@@ -5,6 +5,7 @@ using Microsoft.Practices.ServiceLocation;
 using Torshify.Origo.Contracts.V1;
 using Torshify.Origo.Contracts.V1.Query;
 using Torshify.Origo.Extensions;
+using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Query
 {
@@ -22,6 +23,7 @@ namespace Torshify.Origo.Services.V1.Query
             int artistOffset,
             int artistCount)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
 
             return session
@@ -40,6 +42,7 @@ namespace Torshify.Origo.Services.V1.Query
             AsyncCallback callback,
             object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
 
             return session
@@ -55,6 +58,7 @@ namespace Torshify.Origo.Services.V1.Query
 
         public AlbumBrowseResult AlbumBrowse(string albumId)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
 
             using (var link = session.FromLink<IAlbum>(albumId))
@@ -67,6 +71,7 @@ namespace Torshify.Origo.Services.V1.Query
 
         public IAsyncResult BeginAlbumBrowse(string albumId, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
             var link = session.FromLink<IAlbum>(albumId);
 
@@ -92,6 +97,7 @@ namespace Torshify.Origo.Services.V1.Query
 
         public ArtistBrowseResult ArtistBrowse(string artistId, ArtistBrowsingType type)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
             
             using (var link = session.FromLink<IArtist>(artistId))
@@ -104,6 +110,7 @@ namespace Torshify.Origo.Services.V1.Query
 
         public IAsyncResult BeginArtistBrowse(string artistId, ArtistBrowsingType type, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
             var link = session.FromLink<IArtist>(artistId);
 
@@ -129,6 +136,7 @@ namespace Torshify.Origo.Services.V1.Query
 
         public Playlist GetPlaylist(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
             var linkObject = session.FromLink<IPlaylist>(link);
 

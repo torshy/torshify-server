@@ -873,6 +873,179 @@ namespace Torshify.Origo.Shell.QueryService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Playlist", Namespace="http://schemas.torshify/v1")]
+    [System.SerializableAttribute()]
+    public partial class Playlist : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsCollaborativeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OfflineStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PendingChangesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImageIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] SubscribersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Torshify.Origo.Shell.QueryService.Track[] TracksField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public bool IsCollaborative {
+            get {
+                return this.IsCollaborativeField;
+            }
+            set {
+                if ((this.IsCollaborativeField.Equals(value) != true)) {
+                    this.IsCollaborativeField = value;
+                    this.RaisePropertyChanged("IsCollaborative");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public string OfflineStatus {
+            get {
+                return this.OfflineStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OfflineStatusField, value) != true)) {
+                    this.OfflineStatusField = value;
+                    this.RaisePropertyChanged("OfflineStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public bool PendingChanges {
+            get {
+                return this.PendingChangesField;
+            }
+            set {
+                if ((this.PendingChangesField.Equals(value) != true)) {
+                    this.PendingChangesField = value;
+                    this.RaisePropertyChanged("PendingChanges");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public string ImageID {
+            get {
+                return this.ImageIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImageIDField, value) != true)) {
+                    this.ImageIDField = value;
+                    this.RaisePropertyChanged("ImageID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public string[] Subscribers {
+            get {
+                return this.SubscribersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubscribersField, value) != true)) {
+                    this.SubscribersField = value;
+                    this.RaisePropertyChanged("Subscribers");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public Torshify.Origo.Shell.QueryService.Track[] Tracks {
+            get {
+                return this.TracksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TracksField, value) != true)) {
+                    this.TracksField = value;
+                    this.RaisePropertyChanged("Tracks");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.torshify/v1", ConfigurationName="QueryService.QueryService")]
     public interface QueryService {
@@ -900,6 +1073,14 @@ namespace Torshify.Origo.Shell.QueryService {
         System.IAsyncResult BeginArtistBrowse(string artistId, Torshify.Origo.Shell.QueryService.ArtistBrowsingType type, System.AsyncCallback callback, object asyncState);
         
         Torshify.Origo.Shell.QueryService.ArtistBrowseResult EndArtistBrowse(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/QueryService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/QueryService/GetPlaylistResponse")]
+        Torshify.Origo.Shell.QueryService.Playlist GetPlaylist(string link);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/QueryService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/QueryService/GetPlaylistResponse")]
+        System.IAsyncResult BeginGetPlaylist(string link, System.AsyncCallback callback, object asyncState);
+        
+        Torshify.Origo.Shell.QueryService.Playlist EndGetPlaylist(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -965,6 +1146,25 @@ namespace Torshify.Origo.Shell.QueryService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPlaylistCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPlaylistCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Torshify.Origo.Shell.QueryService.Playlist Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Torshify.Origo.Shell.QueryService.Playlist)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class QueryServiceClient : System.ServiceModel.ClientBase<Torshify.Origo.Shell.QueryService.QueryService>, Torshify.Origo.Shell.QueryService.QueryService {
         
         private BeginOperationDelegate onBeginQueryDelegate;
@@ -984,6 +1184,12 @@ namespace Torshify.Origo.Shell.QueryService {
         private EndOperationDelegate onEndArtistBrowseDelegate;
         
         private System.Threading.SendOrPostCallback onArtistBrowseCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPlaylistDelegate;
+        
+        private EndOperationDelegate onEndGetPlaylistDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPlaylistCompletedDelegate;
         
         public QueryServiceClient() {
         }
@@ -1009,6 +1215,8 @@ namespace Torshify.Origo.Shell.QueryService {
         public event System.EventHandler<AlbumBrowseCompletedEventArgs> AlbumBrowseCompleted;
         
         public event System.EventHandler<ArtistBrowseCompletedEventArgs> ArtistBrowseCompleted;
+        
+        public event System.EventHandler<GetPlaylistCompletedEventArgs> GetPlaylistCompleted;
         
         public Torshify.Origo.Shell.QueryService.QueryResult Query(string query1, int trackOffset, int trackCount, int albumOffset, int albumCount, int artistOffset, int artistCount) {
             return base.Channel.Query(query1, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount);
@@ -1172,6 +1380,56 @@ namespace Torshify.Origo.Shell.QueryService {
             base.InvokeAsync(this.onBeginArtistBrowseDelegate, new object[] {
                         artistId,
                         type}, this.onEndArtistBrowseDelegate, this.onArtistBrowseCompletedDelegate, userState);
+        }
+        
+        public Torshify.Origo.Shell.QueryService.Playlist GetPlaylist(string link) {
+            return base.Channel.GetPlaylist(link);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPlaylist(string link, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPlaylist(link, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Torshify.Origo.Shell.QueryService.Playlist EndGetPlaylist(System.IAsyncResult result) {
+            return base.Channel.EndGetPlaylist(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPlaylist(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string link = ((string)(inValues[0]));
+            return this.BeginGetPlaylist(link, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPlaylist(System.IAsyncResult result) {
+            Torshify.Origo.Shell.QueryService.Playlist retVal = this.EndGetPlaylist(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPlaylistCompleted(object state) {
+            if ((this.GetPlaylistCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPlaylistCompleted(this, new GetPlaylistCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPlaylistAsync(string link) {
+            this.GetPlaylistAsync(link, null);
+        }
+        
+        public void GetPlaylistAsync(string link, object userState) {
+            if ((this.onBeginGetPlaylistDelegate == null)) {
+                this.onBeginGetPlaylistDelegate = new BeginOperationDelegate(this.OnBeginGetPlaylist);
+            }
+            if ((this.onEndGetPlaylistDelegate == null)) {
+                this.onEndGetPlaylistDelegate = new EndOperationDelegate(this.OnEndGetPlaylist);
+            }
+            if ((this.onGetPlaylistCompletedDelegate == null)) {
+                this.onGetPlaylistCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPlaylistCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPlaylistDelegate, new object[] {
+                        link}, this.onEndGetPlaylistDelegate, this.onGetPlaylistCompletedDelegate, userState);
         }
     }
 }

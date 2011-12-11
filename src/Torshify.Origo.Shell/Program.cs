@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using Torshify.Origo.Shell.LoginService;
 using Torshify.Origo.Shell.PlayerControlService;
 using Torshify.Origo.Shell.PlaylistPlayerService;
 using Torshify.Origo.Shell.QueryService;
@@ -12,6 +13,9 @@ namespace Torshify.Origo.Shell
         static void Main(string[] args)
         {
             //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
+
+            LoginServiceClient login = new LoginServiceClient();
+            login.Login(ENTER USERNAME HERE, ENTER PASSWORD HERE, false);
 
             PlayerControlServiceClient control = new PlayerControlServiceClient(new InstanceContext(new MyPlayerControlCallbacks()));
             control.Subscribe();
@@ -69,6 +73,11 @@ namespace Torshify.Origo.Shell
             public void OnVolumeChanged(float volume)
             {
                 Console.WriteLine("Volume changed: " + volume);
+            }
+
+            public void OnPing()
+            {
+                
             }
         }
     }

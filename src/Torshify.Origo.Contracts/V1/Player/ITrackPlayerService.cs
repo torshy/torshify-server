@@ -8,6 +8,7 @@ namespace Torshify.Origo.Contracts.V1.Player
     public interface ITrackPlayerService
     {
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Play(string trackId);
     }
 }

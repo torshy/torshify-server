@@ -9,18 +9,31 @@ namespace Torshify.Origo.Contracts.V1.Player
     public interface IPlayerControlService
     {
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         PlayerStatus GetStatus();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void TogglePause();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void SetVolume(float volume);
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         float GetVolume();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Seek(double milliseconds);
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Subscribe();
+
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         void Unsubscribe();
     }
 }

@@ -166,4 +166,9 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="OnPing">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

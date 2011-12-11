@@ -141,4 +141,32 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArtistBrowseResult" nillable="true" type="tns:ArtistBrowseResult" />
+  <xs:element name="GetPlaylist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="link" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlaylistResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPlaylistResult" nillable="true" type="tns:Playlist" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Playlist">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCollaborative" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OfflineStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PendingChanges" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ImageID" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Subscribers" nillable="true" type="q4:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Tracks" nillable="true" type="tns:ArrayOfTrack" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Playlist" nillable="true" type="tns:Playlist" />
 </xs:schema>

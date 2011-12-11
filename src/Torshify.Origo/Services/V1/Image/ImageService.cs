@@ -9,6 +9,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using Torshify.Origo.Contracts.V1.Image;
 using Torshify.Origo.Extensions;
+using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Image
 {
@@ -19,6 +20,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public IAsyncResult BeginGetAlbumImage(string link, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (string.IsNullOrEmpty(link))
             {
                 return null;
@@ -45,6 +47,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public IAsyncResult BeginGetArtistImage(string link, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (string.IsNullOrEmpty(link))
             {
                 return null;
@@ -65,6 +68,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public IAsyncResult BeginGetImage(string link, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (string.IsNullOrEmpty(link))
             {
                 return null;
@@ -75,6 +79,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public IAsyncResult BeginGetTrackImage(string link, AsyncCallback callback, object state)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (string.IsNullOrEmpty(link))
             {
                 return null;
@@ -122,6 +127,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetAlbumImage(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (WebOperationContext.Current != null)
             {
                 WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
@@ -153,6 +159,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetArtistImage(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (string.IsNullOrEmpty(link))
             {
                 return null;
@@ -173,6 +180,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetImage(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (WebOperationContext.Current != null)
             {
                 WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
@@ -188,6 +196,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream GetTrackImage(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             if (WebOperationContext.Current != null)
             {
                 WebOperationContext.Current.OutgoingResponse.ContentType = "image/png";
@@ -220,6 +229,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         private Task<MemoryStream> GetImageTask(string link)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var session = ServiceLocator.Current.Resolve<ISession>();
             return session
                 .GetImageAsync(link)
@@ -239,6 +249,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         private Task<Stream> GetArtistImageTask(ISession session, IArtist artist)
         {
+            LoginService.EnsureUserIsLoggedIn();
             return session
                 .BrowseAsync(artist, ArtistBrowseType.NoTracks | ArtistBrowseType.NoAlbums)
                 .ContinueWith(t =>

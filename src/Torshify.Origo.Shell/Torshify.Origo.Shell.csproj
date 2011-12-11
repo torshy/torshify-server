@@ -52,6 +52,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\LoginService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\PlayerControlService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,6 +94,14 @@
     </None>
     <None Include="Service References\ImageService\v1.wsdl" />
     <None Include="Service References\ImageService\v1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LoginService\service.wsdl" />
+    <None Include="Service References\LoginService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LoginService\v1.wsdl" />
+    <None Include="Service References\LoginService\v1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\PlayerControlService\service.wsdl" />
@@ -132,6 +145,9 @@
     <None Include="Service References\QueryService\Torshify.Origo.Shell.QueryService.ArtistBrowseResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\QueryService\Torshify.Origo.Shell.QueryService.Playlist.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\QueryService\Torshify.Origo.Shell.QueryService.QueryResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -150,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ImageService\" />
+    <WCFMetadataStorage Include="Service References\LoginService\" />
     <WCFMetadataStorage Include="Service References\PlayerControlService\" />
     <WCFMetadataStorage Include="Service References\PlaylistPlayerService\" />
     <WCFMetadataStorage Include="Service References\QueryService\" />
@@ -211,6 +228,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ImageService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoginService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoginService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoginService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

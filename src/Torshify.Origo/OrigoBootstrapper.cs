@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 
 using AutoMapper;
-
+using Torshify.Origo.Services.V1.Login;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -31,7 +31,7 @@ using WcfContrib.Hosting;
 
 namespace Torshify.Origo
 {
-    public class OrigoBootstrapper : IDisposable
+    public class OrigoBootstrapper : MarshalByRefObject, IDisposable
     {
         #region Constructors
 
@@ -258,6 +258,7 @@ namespace Torshify.Origo
         {
             ServiceHost[] hosts =
             {
+                CreateNetTcpServiceHost<LoginService>("torshify/v1/login"),
                 CreateNetTcpServiceHost<QueryService>("torshify/v1/query"),
                 CreateNetTcpServiceHost<PlayerControlService>("torshify/v1/playercontrol"),
                 CreateNetTcpServiceHost<TrackPlayerService>("torshify/v1/trackplayer"),
@@ -336,20 +337,17 @@ namespace Torshify.Origo
 
             Logger.Debug("Spotify session created");
 
-            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
+            if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
             {
-                Logger.Fatal("No username and/or password provided");
-                Environment.Exit(-1);
-            }
-
-            try
-            {
-                session.Login(UserName, Password);
-            }
-            catch (Exception e)
-            {
-                Logger.Fatal(e.Message);
-                Environment.Exit(-1);
+                try
+                {
+                    session.Login(UserName, Password);
+                }
+                catch (Exception e)
+                {
+                    Logger.Fatal(e.Message);
+                    Environment.Exit(-1);
+                }
             }
         }
 

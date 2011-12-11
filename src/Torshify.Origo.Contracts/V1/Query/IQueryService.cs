@@ -9,6 +9,7 @@ namespace Torshify.Origo.Contracts.V1.Query
     public interface IQueryService
     {
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         QueryResult Query(
             string query, 
             int trackOffset,
@@ -32,6 +33,7 @@ namespace Torshify.Origo.Contracts.V1.Query
         QueryResult EndQuery(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         AlbumBrowseResult AlbumBrowse(string albumId);
 
         [OperationContract(AsyncPattern = true)]
@@ -39,6 +41,7 @@ namespace Torshify.Origo.Contracts.V1.Query
         AlbumBrowseResult EndAlbumBrowse(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         ArtistBrowseResult ArtistBrowse(string artistId, ArtistBrowsingType type);
 
         [OperationContract(AsyncPattern = true)]
@@ -46,6 +49,7 @@ namespace Torshify.Origo.Contracts.V1.Query
         ArtistBrowseResult EndArtistBrowse(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         Playlist GetPlaylist(string link);
     }
 }

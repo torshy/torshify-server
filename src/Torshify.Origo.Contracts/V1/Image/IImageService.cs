@@ -11,6 +11,7 @@ namespace Torshify.Origo.Contracts.V1.Image
     public interface IImageService
     {
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         [WebGet(UriTemplate = "album/{link}")]
         Stream GetAlbumImage(string link);
 
@@ -19,6 +20,7 @@ namespace Torshify.Origo.Contracts.V1.Image
         Stream EndGetAlbumImage(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         [WebGet(UriTemplate = "track/{link}")]
         Stream GetTrackImage(string link);
 
@@ -27,6 +29,7 @@ namespace Torshify.Origo.Contracts.V1.Image
         Stream EndGetTrackImage(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         [WebGet(UriTemplate = "artist/{link}")]
         Stream GetArtistImage(string link);
 
@@ -35,6 +38,7 @@ namespace Torshify.Origo.Contracts.V1.Image
         Stream EndGetArtistImage(IAsyncResult result);
 
         [OperationContract]
+        [FaultContract(typeof(NotLoggedInFault))]
         [WebGet(UriTemplate = "id/{link}")]
         Stream GetImage(string link);
 

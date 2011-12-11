@@ -43,6 +43,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPlaylist">
+      <soap12:operation soapAction="http://schemas.torshify/v1/QueryService/GetPlaylist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="QueryService">
     <wsdl:port name="NetTcpBinding_QueryService" binding="tns:NetTcpBinding_QueryService">

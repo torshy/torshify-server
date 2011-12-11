@@ -3,6 +3,7 @@ using Microsoft.Practices.ServiceLocation;
 using Torshify.Origo.Contracts.V1.Player;
 using Torshify.Origo.Extensions;
 using Torshify.Origo.Interfaces;
+using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Player
 {
@@ -11,6 +12,7 @@ namespace Torshify.Origo.Services.V1.Player
     {
         public void Play(string trackId)
         {
+            LoginService.EnsureUserIsLoggedIn();
             var musicPlayerController = ServiceLocator.Current.Resolve<IMusicPlayerController>();
             musicPlayerController.Play(trackId);
         }
