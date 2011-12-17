@@ -1,6 +1,4 @@
-﻿using System;
-using System.ServiceModel;
-using System.Threading;
+﻿using System.ServiceModel;
 using Microsoft.Practices.ServiceLocation;
 using Torshify.Origo.Contracts.V1;
 using Torshify.Origo.Contracts.V1.Login;
@@ -8,7 +6,7 @@ using Torshify.Origo.Extensions;
 
 namespace Torshify.Origo.Services.V1.Login
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class LoginService : ILoginService
     {
         public void Subscribe()

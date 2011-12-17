@@ -7,7 +7,7 @@ using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Player
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class TrackPlayerService : ITrackPlayerService
     {
         public void Play(string trackId)

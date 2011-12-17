@@ -11,7 +11,7 @@ using Torshify.Origo.Services.V1.Login;
 namespace Torshify.Origo.Services.V1.Player
 {
     [ServiceBehavior(
-        UseSynchronizationContext = false)]
+        UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class PlayerControlService : IPlayerControlService
     {
         #region Methods

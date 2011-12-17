@@ -13,7 +13,7 @@ using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Image
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class ImageService : IImageService
     {
         #region Methods

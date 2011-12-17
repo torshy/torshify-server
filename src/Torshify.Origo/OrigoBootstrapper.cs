@@ -100,8 +100,6 @@ namespace Torshify.Origo
             InitializeStartables();
 
             Logger.Info("torshify server initialized");
-
-            Console.ReadLine();
         }
 
         private ServiceHost CreateNetTcpServiceHost<T>(string name, Action<ServiceHost<T>> extraConfiguration = null)

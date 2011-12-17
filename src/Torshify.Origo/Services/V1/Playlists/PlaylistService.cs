@@ -8,7 +8,7 @@ using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Playlists
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class PlaylistService : IPlaylistService
     {
         public void Subscribe()

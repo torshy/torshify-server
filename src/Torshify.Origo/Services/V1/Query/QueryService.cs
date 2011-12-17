@@ -9,7 +9,7 @@ using Torshify.Origo.Services.V1.Login;
 
 namespace Torshify.Origo.Services.V1.Query
 {
-    [ServiceBehavior(UseSynchronizationContext = false)]
+    [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
     public class QueryService : IQueryService
     {
         #region Methods
