@@ -3,7 +3,6 @@ using System.ServiceModel;
 using Torshify.Origo.Shell.LoginService;
 using Torshify.Origo.Shell.PlayerControlService;
 using Torshify.Origo.Shell.PlaylistPlayerService;
-using Torshify.Origo.Shell.QueryService;
 using Track = Torshify.Origo.Shell.PlayerControlService.Track;
 
 namespace Torshify.Origo.Shell
@@ -12,40 +11,45 @@ namespace Torshify.Origo.Shell
     {
         static void Main(string[] args)
         {
-            //PrintArtistAlbums("spotify:artist:2CIMQHirSU0MQqyYHq0eOx");
+            Console.ReadLine();
 
-            LoginServiceClient login = new LoginServiceClient();
-            //login.Login(ENTER USERNAME HERE, ENTER PASSWORD HERE, false);
+            var login = new LoginServiceClient(new InstanceContext(new MyLoginCallbacks()));
+            login.Login
 
-            PlayerControlServiceClient control = new PlayerControlServiceClient(new InstanceContext(new MyPlayerControlCallbacks()));
+            var control = new PlayerControlServiceClient(new InstanceContext(new MyPlayerControlCallbacks()));
             control.Subscribe();
 
-            PlaylistPlayerServiceClient player = new PlaylistPlayerServiceClient();
+            var player = new PlaylistPlayerServiceClient();
             player.Initialize(new[]
-                                  {
-                                      "spotify:track:2lvILTIWBbzFeHF95zSWoF",
-                                      "spotify:track:50JVjWk5JwoJsIQLcqHftd"
-                                  });
+                                {
+                                    "spotify:track:2lvILTIWBbzFeHF95zSWoF",
+                                    "spotify:track:50JVjWk5JwoJsIQLcqHftd"
+                                });
 
-            control.SetVolume(0.01f);
+            control.SetVolume(0.4f);
             Console.ReadLine();
         }
 
-        private static void PrintArtistAlbums(string artistLink)
+        public class MyLoginCallbacks : LoginServiceCallback
         {
-            QueryServiceClient query = new QueryServiceClient();
-            var result = query.ArtistBrowse(artistLink, ArtistBrowsingType.NoTracks);
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(result.Artist.Name);
-            Console.ForegroundColor = ConsoleColor.Gray;
-
-            foreach (var album in result.Albums)
+            public void OnLoggedIn()
             {
-                Console.WriteLine(album.Name);
+                Console.WriteLine("Logged in");
             }
 
-            query.Close();
+            public void OnLoginError(string message)
+            {
+                Console.WriteLine("Loggin error : " + message);
+            }
+
+            public void OnLoggedOut()
+            {
+                Console.WriteLine("Logged out");
+            }
+
+            public void OnPing()
+            {
+            }
         }
 
         public class MyPlayerControlCallbacks : PlayerControlServiceCallback

@@ -430,6 +430,9 @@ namespace Torshify.Origo.Shell.QueryService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IDField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAvailableField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -580,6 +583,48 @@ namespace Torshify.Origo.Shell.QueryService {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
                 }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public bool IsAvailable {
+            get {
+                return this.IsAvailableField;
+            }
+            set {
+                if ((this.IsAvailableField.Equals(value) != true)) {
+                    this.IsAvailableField = value;
+                    this.RaisePropertyChanged("IsAvailable");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
+    [System.SerializableAttribute()]
+    public partial class NotLoggedInFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
             }
         }
         
@@ -1051,6 +1096,7 @@ namespace Torshify.Origo.Shell.QueryService {
     public interface QueryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/QueryService/Query", ReplyAction="http://schemas.torshify/v1/QueryService/QueryResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.QueryService.NotLoggedInFault), Action="http://schemas.torshify/v1/QueryService/QueryNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.QueryService.QueryResult Query([System.ServiceModel.MessageParameterAttribute(Name="query")] string query1, int trackOffset, int trackCount, int albumOffset, int albumCount, int artistOffset, int artistCount);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/QueryService/Query", ReplyAction="http://schemas.torshify/v1/QueryService/QueryResponse")]
@@ -1059,6 +1105,7 @@ namespace Torshify.Origo.Shell.QueryService {
         Torshify.Origo.Shell.QueryService.QueryResult EndQuery(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/QueryService/AlbumBrowse", ReplyAction="http://schemas.torshify/v1/QueryService/AlbumBrowseResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.QueryService.NotLoggedInFault), Action="http://schemas.torshify/v1/QueryService/AlbumBrowseNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.QueryService.AlbumBrowseResult AlbumBrowse(string albumId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/QueryService/AlbumBrowse", ReplyAction="http://schemas.torshify/v1/QueryService/AlbumBrowseResponse")]
@@ -1067,6 +1114,7 @@ namespace Torshify.Origo.Shell.QueryService {
         Torshify.Origo.Shell.QueryService.AlbumBrowseResult EndAlbumBrowse(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/QueryService/ArtistBrowse", ReplyAction="http://schemas.torshify/v1/QueryService/ArtistBrowseResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.QueryService.NotLoggedInFault), Action="http://schemas.torshify/v1/QueryService/ArtistBrowseNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.QueryService.ArtistBrowseResult ArtistBrowse(string artistId, Torshify.Origo.Shell.QueryService.ArtistBrowsingType type);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/QueryService/ArtistBrowse", ReplyAction="http://schemas.torshify/v1/QueryService/ArtistBrowseResponse")]
@@ -1075,6 +1123,7 @@ namespace Torshify.Origo.Shell.QueryService {
         Torshify.Origo.Shell.QueryService.ArtistBrowseResult EndArtistBrowse(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/QueryService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/QueryService/GetPlaylistResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.QueryService.NotLoggedInFault), Action="http://schemas.torshify/v1/QueryService/GetPlaylistNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.QueryService.Playlist GetPlaylist(string link);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/QueryService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/QueryService/GetPlaylistResponse")]

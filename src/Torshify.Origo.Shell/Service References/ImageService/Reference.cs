@@ -9,13 +9,45 @@
 //------------------------------------------------------------------------------
 
 namespace Torshify.Origo.Shell.ImageService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
+    [System.SerializableAttribute()]
+    public partial class NotLoggedInFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.torshify/v1", ConfigurationName="ImageService.ImageService")]
     public interface ImageService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/ImageService/GetAlbumImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetAlbumImageResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.ImageService.NotLoggedInFault), Action="http://schemas.torshify/v1/ImageService/GetAlbumImageNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         System.IO.Stream GetAlbumImage(string link);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/ImageService/GetAlbumImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetAlbumImageResponse")]
@@ -24,6 +56,7 @@ namespace Torshify.Origo.Shell.ImageService {
         System.IO.Stream EndGetAlbumImage(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/ImageService/GetTrackImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetTrackImageResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.ImageService.NotLoggedInFault), Action="http://schemas.torshify/v1/ImageService/GetTrackImageNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         System.IO.Stream GetTrackImage(string link);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/ImageService/GetTrackImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetTrackImageResponse")]
@@ -32,6 +65,7 @@ namespace Torshify.Origo.Shell.ImageService {
         System.IO.Stream EndGetTrackImage(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/ImageService/GetArtistImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetArtistImageResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.ImageService.NotLoggedInFault), Action="http://schemas.torshify/v1/ImageService/GetArtistImageNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         System.IO.Stream GetArtistImage(string link);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/ImageService/GetArtistImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetArtistImageResponse")]
@@ -40,6 +74,7 @@ namespace Torshify.Origo.Shell.ImageService {
         System.IO.Stream EndGetArtistImage(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/ImageService/GetImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetImageResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.ImageService.NotLoggedInFault), Action="http://schemas.torshify/v1/ImageService/GetImageNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         System.IO.Stream GetImage(string link);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://schemas.torshify/v1/ImageService/GetImage", ReplyAction="http://schemas.torshify/v1/ImageService/GetImageResponse")]

@@ -156,7 +156,9 @@ namespace Torshify.Origo
             Mapper.CreateMap<ITrack, Track>()
                 .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration.TotalMilliseconds))
-                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)));
+                .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)))
+                .ForMember(dest => dest.IsAvailable,
+                           opt => opt.MapFrom(src => src.Availability == TrackAvailablity.Available));
 
             Mapper.CreateMap<IPlaylist, Playlist>()
                 .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
@@ -164,11 +166,13 @@ namespace Torshify.Origo
                 .ForMember(dest => dest.ImageID, opt => opt.MapFrom(src => src.ImageId));
 
             Mapper.CreateMap<IArtistBrowse, ArtistBrowseResult>()
-                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
+                .ForMember(dest => dest.BackendRequestDuration,
+                           opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
                 .ForMember(dest => dest.Portraits, opt => opt.MapFrom(src => ToStringList(src.Portraits)));
 
             Mapper.CreateMap<IAlbumBrowse, AlbumBrowseResult>()
-                .ForMember(dest => dest.BackendRequestDuration, opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds));
+                .ForMember(dest => dest.BackendRequestDuration,
+                           opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds));
 
             Mapper.CreateMap<ISearch, QueryResult>();
         }

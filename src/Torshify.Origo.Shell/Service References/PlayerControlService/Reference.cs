@@ -164,6 +164,9 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IDField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAvailableField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -313,6 +316,19 @@ namespace Torshify.Origo.Shell.PlayerControlService {
                 if ((object.ReferenceEquals(this.IDField, value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public bool IsAvailable {
+            get {
+                return this.IsAvailableField;
+            }
+            set {
+                if ((this.IsAvailableField.Equals(value) != true)) {
+                    this.IsAvailableField = value;
+                    this.RaisePropertyChanged("IsAvailable");
                 }
             }
         }
@@ -545,29 +561,65 @@ namespace Torshify.Origo.Shell.PlayerControlService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
+    [System.SerializableAttribute()]
+    public partial class NotLoggedInFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.torshify/v1", ConfigurationName="PlayerControlService.PlayerControlService", CallbackContract=typeof(Torshify.Origo.Shell.PlayerControlService.PlayerControlServiceCallback))]
     public interface PlayerControlService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/GetStatus", ReplyAction="http://schemas.torshify/v1/PlayerControlService/GetStatusResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/GetStatusNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.PlayerControlService.PlayerStatus GetStatus();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/TogglePause", ReplyAction="http://schemas.torshify/v1/PlayerControlService/TogglePauseResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/TogglePauseNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void TogglePause();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/SetVolume", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SetVolumeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/SetVolumeNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void SetVolume(float volume);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/GetVolume", ReplyAction="http://schemas.torshify/v1/PlayerControlService/GetVolumeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/GetVolumeNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         float GetVolume();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/Seek", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SeekResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/SeekNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Seek(double milliseconds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/Subscribe", ReplyAction="http://schemas.torshify/v1/PlayerControlService/SubscribeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/SubscribeNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Subscribe();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlayerControlService/Unsubscribe", ReplyAction="http://schemas.torshify/v1/PlayerControlService/UnsubscribeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlayerControlService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlayerControlService/UnsubscribeNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Unsubscribe();
     }
     

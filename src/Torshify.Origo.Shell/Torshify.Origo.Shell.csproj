@@ -92,6 +92,9 @@
     <None Include="Service References\ImageService\service.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ImageService\Torshify.Origo.Contracts.V1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ImageService\v1.wsdl" />
     <None Include="Service References\ImageService\v1.xsd">
       <SubType>Designer</SubType>
@@ -108,6 +111,9 @@
     <None Include="Service References\PlayerControlService\service.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\PlayerControlService\Torshify.Origo.Contracts.V1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PlayerControlService\Torshify.Origo.Shell.PlayerControlService.PlayerStatus.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -120,6 +126,9 @@
     </None>
     <None Include="Service References\PlaylistPlayerService\service.wsdl" />
     <None Include="Service References\PlaylistPlayerService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlaylistPlayerService\Torshify.Origo.Contracts.V1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\PlaylistPlayerService\Torshify.Origo.Shell.PlaylistPlayerService.PlaylistTrack.datasource">
@@ -137,6 +146,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\QueryService\Torshify.Origo.Contracts.V1.Query.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QueryService\Torshify.Origo.Contracts.V1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\QueryService\Torshify.Origo.Shell.QueryService.AlbumBrowseResult.datasource">
@@ -157,6 +169,9 @@
     </None>
     <None Include="Service References\TrackPlayerService\service.wsdl" />
     <None Include="Service References\TrackPlayerService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TrackPlayerService\Torshify.Origo.Contracts.V1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\TrackPlayerService\v1.wsdl" />

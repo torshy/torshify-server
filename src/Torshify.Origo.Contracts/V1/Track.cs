@@ -31,6 +31,8 @@ namespace Torshify.Origo.Contracts.V1
         public Artist[] Artists { get; set; }
         [DataMember(Name = "ID", Order = 10)]
         public string ID { get; set; }
+        [DataMember(Name = "IsAvailable", Order = 11)]
+        public bool IsAvailable { get; set; }
         public ExtensionDataObject ExtensionData { get; set; }
     }
 }

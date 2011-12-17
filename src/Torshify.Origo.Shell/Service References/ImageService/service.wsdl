@@ -24,6 +24,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetTrackImage">
       <soap12:operation soapAction="http://schemas.torshify/v1/ImageService/GetTrackImage" style="document" />
@@ -33,6 +36,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetArtistImage">
       <soap12:operation soapAction="http://schemas.torshify/v1/ImageService/GetArtistImage" style="document" />
@@ -42,6 +48,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetImage">
       <soap12:operation soapAction="http://schemas.torshify/v1/ImageService/GetImage" style="document" />
@@ -51,6 +60,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ImageService">

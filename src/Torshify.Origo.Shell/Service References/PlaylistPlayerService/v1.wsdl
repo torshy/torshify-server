@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://schemas.torshify/v1/Imports">
       <xsd:import namespace="http://schemas.torshify/v1" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
@@ -13,11 +14,17 @@
   <wsdl:message name="PlaylistPlayerService_Initialize_OutputMessage">
     <wsdl:part name="parameters" element="tns:InitializeResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_Initialize_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q1:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_Enqueue_InputMessage">
     <wsdl:part name="parameters" element="tns:Enqueue" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_Enqueue_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnqueueResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_Enqueue_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q2:NotLoggedInFault" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_Next_InputMessage">
     <wsdl:part name="parameters" element="tns:Next" />
@@ -25,11 +32,17 @@
   <wsdl:message name="PlaylistPlayerService_Next_OutputMessage">
     <wsdl:part name="parameters" element="tns:NextResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_Next_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q3:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_Previous_InputMessage">
     <wsdl:part name="parameters" element="tns:Previous" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_Previous_OutputMessage">
     <wsdl:part name="parameters" element="tns:PreviousResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_Previous_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q4:NotLoggedInFault" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetCurrent_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCurrent" />
@@ -37,11 +50,17 @@
   <wsdl:message name="PlaylistPlayerService_GetCurrent_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCurrentResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetCurrent_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q5:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetPlaylist_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlaylist" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetPlaylist_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlaylistResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetPlaylist_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q6:NotLoggedInFault" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_SetShuffle_InputMessage">
     <wsdl:part name="parameters" element="tns:SetShuffle" />
@@ -49,11 +68,17 @@
   <wsdl:message name="PlaylistPlayerService_SetShuffle_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetShuffleResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetShuffle_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q7:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_SetRepeat_InputMessage">
     <wsdl:part name="parameters" element="tns:SetRepeat" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_SetRepeat_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetRepeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_SetRepeat_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q8:NotLoggedInFault" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetRepeat_InputMessage">
     <wsdl:part name="parameters" element="tns:GetRepeat" />
@@ -61,52 +86,68 @@
   <wsdl:message name="PlaylistPlayerService_GetRepeat_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetRepeatResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetRepeat_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q9:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetShuffle_InputMessage">
     <wsdl:part name="parameters" element="tns:GetShuffle" />
   </wsdl:message>
   <wsdl:message name="PlaylistPlayerService_GetShuffle_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetShuffleResponse" />
   </wsdl:message>
+  <wsdl:message name="PlaylistPlayerService_GetShuffle_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q10:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:portType name="PlaylistPlayerService">
     <wsdl:operation name="Initialize">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/Initialize" message="tns:PlaylistPlayerService_Initialize_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/InitializeResponse" message="tns:PlaylistPlayerService_Initialize_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/InitializeNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_Initialize_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Enqueue">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/Enqueue" message="tns:PlaylistPlayerService_Enqueue_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/EnqueueResponse" message="tns:PlaylistPlayerService_Enqueue_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/EnqueueNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_Enqueue_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Next">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/Next" message="tns:PlaylistPlayerService_Next_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/NextResponse" message="tns:PlaylistPlayerService_Next_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/NextNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_Next_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Previous">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/Previous" message="tns:PlaylistPlayerService_Previous_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/PreviousResponse" message="tns:PlaylistPlayerService_Previous_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/PreviousNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_Previous_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCurrent">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrent" message="tns:PlaylistPlayerService_GetCurrent_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrentResponse" message="tns:PlaylistPlayerService_GetCurrent_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrentNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_GetCurrent_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlaylist">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylist" message="tns:PlaylistPlayerService_GetPlaylist_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistResponse" message="tns:PlaylistPlayerService_GetPlaylist_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_GetPlaylist_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetShuffle">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle" message="tns:PlaylistPlayerService_SetShuffle_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleResponse" message="tns:PlaylistPlayerService_SetShuffle_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_SetShuffle_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetRepeat">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat" message="tns:PlaylistPlayerService_SetRepeat_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatResponse" message="tns:PlaylistPlayerService_SetRepeat_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_SetRepeat_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetRepeat">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat" message="tns:PlaylistPlayerService_GetRepeat_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatResponse" message="tns:PlaylistPlayerService_GetRepeat_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_GetRepeat_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetShuffle">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle" message="tns:PlaylistPlayerService_GetShuffle_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleResponse" message="tns:PlaylistPlayerService_GetShuffle_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:PlaylistPlayerService_GetShuffle_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

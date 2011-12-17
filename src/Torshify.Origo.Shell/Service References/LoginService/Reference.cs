@@ -12,8 +12,14 @@ namespace Torshify.Origo.Shell.LoginService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.torshify/v1", ConfigurationName="LoginService.LoginService")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.torshify/v1", ConfigurationName="LoginService.LoginService", CallbackContract=typeof(Torshify.Origo.Shell.LoginService.LoginServiceCallback))]
     public interface LoginService {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/LoginService/Subscribe", ReplyAction="http://schemas.torshify/v1/LoginService/SubscribeResponse")]
+        void Subscribe();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/LoginService/Unsubscribe", ReplyAction="http://schemas.torshify/v1/LoginService/UnsubscribeResponse")]
+        void Unsubscribe();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/LoginService/IsLoggedIn", ReplyAction="http://schemas.torshify/v1/LoginService/IsLoggedInResponse")]
         bool IsLoggedIn();
@@ -32,30 +38,55 @@ namespace Torshify.Origo.Shell.LoginService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface LoginServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/LoginService/OnLoggedIn")]
+        void OnLoggedIn();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/LoginService/OnLoginError")]
+        void OnLoginError(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/LoginService/OnLoggedOut")]
+        void OnLoggedOut();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://schemas.torshify/v1/LoginService/OnPing")]
+        void OnPing();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface LoginServiceChannel : Torshify.Origo.Shell.LoginService.LoginService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LoginServiceClient : System.ServiceModel.ClientBase<Torshify.Origo.Shell.LoginService.LoginService>, Torshify.Origo.Shell.LoginService.LoginService {
+    public partial class LoginServiceClient : System.ServiceModel.DuplexClientBase<Torshify.Origo.Shell.LoginService.LoginService>, Torshify.Origo.Shell.LoginService.LoginService {
         
-        public LoginServiceClient() {
+        public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public LoginServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public LoginServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public LoginServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public LoginServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public LoginServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void Subscribe() {
+            base.Channel.Subscribe();
+        }
+        
+        public void Unsubscribe() {
+            base.Channel.Unsubscribe();
         }
         
         public bool IsLoggedIn() {

@@ -24,6 +24,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Enqueue">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/Enqueue" style="document" />
@@ -33,6 +36,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Next">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/Next" style="document" />
@@ -42,6 +48,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Previous">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/Previous" style="document" />
@@ -51,6 +60,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetCurrent">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrent" style="document" />
@@ -60,6 +72,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetPlaylist">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylist" style="document" />
@@ -69,6 +84,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="SetShuffle">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle" style="document" />
@@ -78,6 +96,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="SetRepeat">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat" style="document" />
@@ -87,6 +108,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetRepeat">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat" style="document" />
@@ -96,6 +120,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetShuffle">
       <soap12:operation soapAction="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle" style="document" />
@@ -105,6 +132,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="NotLoggedInFaultFault">
+        <soap12:fault use="literal" name="NotLoggedInFaultFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PlaylistPlayerService">

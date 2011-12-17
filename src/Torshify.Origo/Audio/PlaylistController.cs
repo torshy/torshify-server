@@ -84,7 +84,7 @@ namespace Torshify.Origo.Audio
             foreach (var linkId in linkIds)
             {
                 var tracks = GetTracks(linkId).ToArray();
-                trackToInitialize.AddRange(tracks.Select(t => new PlaylistTrack {Track = t}).ToArray());
+                trackToInitialize.AddRange(tracks.Select(t => new PlaylistTrack { Track = t }).ToArray());
             }
 
             _playlist.Initialize(trackToInitialize.ToArray());
@@ -141,8 +141,10 @@ namespace Torshify.Origo.Audio
         {
             using (link.Object)
             {
-                IArtistBrowse browse = _session.BrowseAsync(link.Object, ArtistBrowseType.NoAlbums).Result;
-                return browse.Tracks.Select(Convertion.ConvertToDto).ToArray();
+                using (IArtistBrowse browse = _session.BrowseAsync(link.Object, ArtistBrowseType.Full).Result)
+                {
+                    return browse.Tracks.Select(Convertion.ConvertToDto).ToArray();
+                }
             }
         }
 
@@ -150,14 +152,16 @@ namespace Torshify.Origo.Audio
         {
             using (link.Object)
             {
-                IAlbumBrowse browse = _session.BrowseAsync(link.Object).Result;
-                return browse.Tracks.Select(Convertion.ConvertToDto).ToArray();
+                using (IAlbumBrowse browse = _session.BrowseAsync(link.Object).Result)
+                {
+                    return browse.Tracks.Select(Convertion.ConvertToDto).ToArray();
+                }
             }
         }
 
         private IEnumerable<Track> GetTracks(ILink<ITrackAndOffset> link)
         {
-            return new[] {Convertion.ConvertToDto(link.Object.Track)};
+            return new[] { Convertion.ConvertToDto(link.Object.Track) };
         }
 
         private void OnPlaylistCurrentChanged(object sender, EventArgs e)

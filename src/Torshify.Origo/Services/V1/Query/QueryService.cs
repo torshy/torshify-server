@@ -63,9 +63,12 @@ namespace Torshify.Origo.Services.V1.Query
 
             using (var link = session.FromLink<IAlbum>(albumId))
             {
-                return session
-                    .BrowseAsync(link.Object)
-                    .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                using (link.Object)
+                {
+                    return session
+                        .BrowseAsync(link.Object)
+                        .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                }
             }
         }
 
@@ -102,9 +105,12 @@ namespace Torshify.Origo.Services.V1.Query
             
             using (var link = session.FromLink<IArtist>(artistId))
             {
-                return session
-                    .BrowseAsync(link.Object, Convertion.ConvertBack(type))
-                    .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                using (link.Object)
+                {
+                    return session
+                        .BrowseAsync(link.Object, Convertion.ConvertBack(type))
+                        .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                }
             }
         }
 

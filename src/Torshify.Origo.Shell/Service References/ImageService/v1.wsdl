@@ -3,6 +3,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://schemas.torshify/v1/Imports">
       <xsd:import namespace="http://schemas.torshify/v1" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.microsoft.com/Message" />
     </xsd:schema>
@@ -13,11 +14,17 @@
   <wsdl:message name="ImageService_GetAlbumImage_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAlbumImageResponse" />
   </wsdl:message>
+  <wsdl:message name="ImageService_GetAlbumImage_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q1:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="ImageService_GetTrackImage_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTrackImage" />
   </wsdl:message>
   <wsdl:message name="ImageService_GetTrackImage_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTrackImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImageService_GetTrackImage_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q2:NotLoggedInFault" />
   </wsdl:message>
   <wsdl:message name="ImageService_GetArtistImage_InputMessage">
     <wsdl:part name="parameters" element="tns:GetArtistImage" />
@@ -25,28 +32,38 @@
   <wsdl:message name="ImageService_GetArtistImage_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetArtistImageResponse" />
   </wsdl:message>
+  <wsdl:message name="ImageService_GetArtistImage_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q3:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:message name="ImageService_GetImage_InputMessage">
     <wsdl:part name="parameters" element="tns:GetImage" />
   </wsdl:message>
   <wsdl:message name="ImageService_GetImage_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetImageResponse" />
   </wsdl:message>
+  <wsdl:message name="ImageService_GetImage_NotLoggedInFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1" name="detail" element="q4:NotLoggedInFault" />
+  </wsdl:message>
   <wsdl:portType name="ImageService">
     <wsdl:operation name="GetAlbumImage">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetAlbumImage" message="tns:ImageService_GetAlbumImage_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetAlbumImageResponse" message="tns:ImageService_GetAlbumImage_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/ImageService/GetAlbumImageNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:ImageService_GetAlbumImage_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTrackImage">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetTrackImage" message="tns:ImageService_GetTrackImage_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetTrackImageResponse" message="tns:ImageService_GetTrackImage_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/ImageService/GetTrackImageNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:ImageService_GetTrackImage_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetArtistImage">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetArtistImage" message="tns:ImageService_GetArtistImage_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetArtistImageResponse" message="tns:ImageService_GetArtistImage_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/ImageService/GetArtistImageNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:ImageService_GetArtistImage_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetImage">
       <wsdl:input wsaw:Action="http://schemas.torshify/v1/ImageService/GetImage" message="tns:ImageService_GetImage_InputMessage" />
       <wsdl:output wsaw:Action="http://schemas.torshify/v1/ImageService/GetImageResponse" message="tns:ImageService_GetImage_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://schemas.torshify/v1/ImageService/GetImageNotLoggedInFaultFault" name="NotLoggedInFaultFault" message="tns:ImageService_GetImage_NotLoggedInFaultFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

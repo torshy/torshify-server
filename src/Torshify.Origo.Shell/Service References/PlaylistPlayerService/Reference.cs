@@ -15,6 +15,35 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
+    [System.SerializableAttribute()]
+    public partial class NotLoggedInFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PlaylistTrack", Namespace="http://schemas.torshify/v1")]
     [System.SerializableAttribute()]
     public partial class PlaylistTrack : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -115,6 +144,9 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAvailableField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -265,6 +297,19 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
                 if ((object.ReferenceEquals(this.IDField, value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public bool IsAvailable {
+            get {
+                return this.IsAvailableField;
+            }
+            set {
+                if ((this.IsAvailableField.Equals(value) != true)) {
+                    this.IsAvailableField = value;
+                    this.RaisePropertyChanged("IsAvailable");
                 }
             }
         }
@@ -502,33 +547,44 @@ namespace Torshify.Origo.Shell.PlaylistPlayerService {
     public interface PlaylistPlayerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Initialize", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/InitializeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/InitializeNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Initialize(string[] links);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Enqueue", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/EnqueueResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/EnqueueNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Enqueue(string[] links);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Next", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/NextResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/NextNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Next();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/Previous", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/PreviousResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/PreviousNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void Previous();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrent", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrentResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/GetCurrentNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.PlaylistPlayerService.PlaylistTrack GetCurrent();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylist", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/GetPlaylistNotLoggedInFaultFault" +
+            "", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         Torshify.Origo.Shell.PlaylistPlayerService.PlaylistTrack[] GetPlaylist();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffle", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/SetShuffleNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void SetShuffle(bool shuffle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeat", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/SetRepeatNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         void SetRepeat(bool repeat);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeat", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/GetRepeatNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         bool GetRepeat();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffle", ReplyAction="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Torshify.Origo.Shell.PlaylistPlayerService.NotLoggedInFault), Action="http://schemas.torshify/v1/PlaylistPlayerService/GetShuffleNotLoggedInFaultFault", Name="NotLoggedInFault", Namespace="http://schemas.datacontract.org/2004/07/Torshify.Origo.Contracts.V1")]
         bool GetShuffle();
     }
     
