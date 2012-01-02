@@ -1,0 +1,55 @@
+﻿<Window
+    x:Class="Torshify.Origo.Embedded.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Embedded="clr-namespace:Torshify.Origo.Embedded"
+    Title="{Binding LoginStatus}"
+    Height="350"
+    Width="525">
+    <Window.DataContext>
+        <Embedded:MainWindowViewModel />
+    </Window.DataContext>
+    <DockPanel
+        LastChildFill="True">
+        <DockPanel
+            DockPanel.Dock="Top"
+            LastChildFill="True">
+            <Button
+                DockPanel.Dock="Right"
+                Content="Go!"
+                Command="{Binding SearchCommand}"
+                CommandParameter="{Binding Text, ElementName=_searchBox}" />
+            <TextBox
+                x:FieldModifier="private"
+                Name="_searchBox" />
+        </DockPanel>
+
+        <ListBox
+            ItemsSource="{Binding SearchResults}"
+            HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel
+                        LastChildFill="True">
+                        <Button
+                            DockPanel.Dock="Right"
+                            Content="Play"
+                            Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                            CommandParameter="{Binding}" />
+                        <StackPanel>
+                            <TextBlock
+                                Text="{Binding Name}"
+                                FontSize="16" />
+                            <TextBlock
+                                Text="{Binding Album.Name}"
+                                Foreground="Gray" />
+                            <TextBlock
+                                Text="{Binding Album.Artist.Name}"
+                                Foreground="Gray" />
+                        </StackPanel>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>

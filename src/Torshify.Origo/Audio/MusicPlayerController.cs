@@ -137,29 +137,26 @@ namespace Torshify.Origo.Audio
             {
                 using (var track = link.Object.Track)
                 {
-                    while (!track.IsLoaded)
+                    if (track.WaitUntilLoaded())
                     {
-                        Thread.Yield();
-                    }
-
-                    if (track.Availability == TrackAvailablity.Available)
-                    {
-                        CurrentTrack = AutoMapper.Mapper.Map<ITrack, Track>(track);
-                        Elapsed = TimeSpan.Zero;
-
-                        var status = _session.PlayerLoad(track);
-                        if (status == Error.OK)
+                        if (track.Availability == TrackAvailablity.Available)
                         {
-                            _session.PlayerPlay();
+                            var status = _session.PlayerLoad(track);
+                            if (status == Error.OK)
+                            {
+                                CurrentTrack = AutoMapper.Mapper.Map<ITrack, Track>(track);
+                                Elapsed = TimeSpan.Zero;
+                                _session.PlayerPlay();
+                            }
+                            else
+                            {
+                                throw new Exception(status.GetMessage());
+                            }
                         }
                         else
                         {
-                            throw new Exception(status.GetMessage());
+                            throw new InvalidOperationException(track.Availability.ToString());
                         }
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException(track.Availability.ToString());
                     }
                 }
             }
