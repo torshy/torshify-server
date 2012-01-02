@@ -146,35 +146,42 @@ namespace Torshify.Origo
 
             Mapper.CreateMap<IArtist, Artist>()
                 .ForMember(dest => dest.PortraitID, opt => opt.MapFrom(src => src.PortraitId))
-                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())));
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
+                .AfterMap((a, dto) => a.Dispose());
 
             Mapper.CreateMap<IAlbum, Album>()
                 .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => Convert.ToString(src.Type)))
-                .ForMember(dest => dest.CoverID, opt => opt.MapFrom(src => Convert.ToString(src.CoverId)));
+                .ForMember(dest => dest.CoverID, opt => opt.MapFrom(src => Convert.ToString(src.CoverId)))
+                .AfterMap((a, dto) => a.Dispose());
 
             Mapper.CreateMap<ITrack, Track>()
                 .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration.TotalMilliseconds))
                 .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)))
                 .ForMember(dest => dest.IsAvailable,
-                           opt => opt.MapFrom(src => src.Availability == TrackAvailablity.Available));
+                           opt => opt.MapFrom(src => src.Availability == TrackAvailablity.Available))
+                .AfterMap((t, dto) => t.Dispose());
 
             Mapper.CreateMap<IPlaylist, Playlist>()
                 .ForMember(dest => dest.ID, opt => opt.MapFrom(src => Mapper.Map<ILink, string>(src.ToLink())))
                 .ForMember(dest => dest.OfflineStatus, opt => opt.MapFrom(src => Convert.ToString(src.OfflineStatus)))
-                .ForMember(dest => dest.ImageID, opt => opt.MapFrom(src => src.ImageId));
+                .ForMember(dest => dest.ImageID, opt => opt.MapFrom(src => src.ImageId))
+                .AfterMap((p, dto) => p.Dispose());
 
             Mapper.CreateMap<IArtistBrowse, ArtistBrowseResult>()
                 .ForMember(dest => dest.BackendRequestDuration,
                            opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
-                .ForMember(dest => dest.Portraits, opt => opt.MapFrom(src => ToStringList(src.Portraits)));
+                .ForMember(dest => dest.Portraits, opt => opt.MapFrom(src => ToStringList(src.Portraits)))
+                .AfterMap((b, dto) => b.Dispose());
 
             Mapper.CreateMap<IAlbumBrowse, AlbumBrowseResult>()
                 .ForMember(dest => dest.BackendRequestDuration,
-                           opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds));
+                           opt => opt.MapFrom(src => src.BackendRequestDuration.TotalMilliseconds))
+                .AfterMap((b, dto) => b.Dispose());
 
-            Mapper.CreateMap<ISearch, QueryResult>();
+            Mapper.CreateMap<ISearch, QueryResult>()
+                .AfterMap((s, dto) => s.Dispose());
         }
 
         private void InitializeContainer()
@@ -235,11 +242,11 @@ namespace Torshify.Origo
                     Level = Level.Info
                 });
             consoleAppender.Layout = new PatternLayout("%date{dd MM HH:mm} %-5level - %message%newline");
-            #if DEBUG
+#if DEBUG
             consoleAppender.Threshold = Level.All;
-            #else
+#else
             consoleAppender.Threshold = Level.Info;
-            #endif
+#endif
             consoleAppender.ActivateOptions();
 
             Logger root;
@@ -368,11 +375,12 @@ namespace Torshify.Origo
         {
             foreach (var portrait in portraits)
             {
-                portrait.WaitForCompletion();
-
-                using(portrait)
+                using (portrait)
                 {
-                    yield return portrait.ImageId;
+                    if (portrait.WaitUntilLoaded())
+                    {
+                        yield return portrait.ImageId;
+                    }
                 }
             }
         }

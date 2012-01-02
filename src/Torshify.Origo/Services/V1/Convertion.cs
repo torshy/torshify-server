@@ -36,6 +36,8 @@ namespace Torshify.Origo.Services.V1
         {
             using(playlist)
             {
+                playlist.WaitUntilLoaded();
+
                 return Mapper.Map<IPlaylist, Playlist>(playlist);
             }
         }
@@ -44,6 +46,8 @@ namespace Torshify.Origo.Services.V1
         {
             using (album)
             {
+                album.WaitUntilLoaded();
+
                 return Mapper.Map<IAlbum, Album>(album);
             }
         }
@@ -52,6 +56,8 @@ namespace Torshify.Origo.Services.V1
         {
             using (artist)
             {
+                artist.WaitUntilLoaded();
+
                 return Mapper.Map<IArtist, Artist>(artist);
             }
         }
@@ -60,6 +66,8 @@ namespace Torshify.Origo.Services.V1
         {
             using (track)
             {
+                track.WaitUntilLoaded();
+
                 return Mapper.Map<ITrack, Track>(track);
             }
         }

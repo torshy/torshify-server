@@ -260,9 +260,14 @@ namespace Torshify.Origo.Services.V1.Image
                         {
                             using (var image = t.Result.Portraits[0])
                             {
-                                return
-                                    new MemoryStream(
-                                        image.WaitForCompletion().Data);
+                                if (image.WaitUntilLoaded())
+                                {
+                                    return
+                                        new MemoryStream(
+                                            image.Data);
+                                }
+
+                                return new MemoryStream();
                             }
                         }
 

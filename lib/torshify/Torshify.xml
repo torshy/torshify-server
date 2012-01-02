@@ -116,6 +116,20 @@
             <param name="name">Name of new playlist.</param>
             <returns>Pointer to the new playlist. Can be null if the operation fails.</returns>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_playlistcontainer_add_folder(System.IntPtr,System.Int32,System.String)">
+            <summary>
+            Add a playlist folder
+            
+            This operation will actually create two playlists. One of type SP_PLAYLIST_TYPE_START_FOLDER and immediately following a SP_PLAYLIST_TYPE_END_FOLDER one.
+            
+            To remove a playlist folder both of these must be deleted or the list will be left in an inconsistant state.
+            
+            There is no way to rename a playlist folder. Instead you need to remove the folder and recreate it again.
+            </summary>
+            <param name="pcPtr">Playlist container.</param>
+            <param name="name">Name of new playlist.</param>
+            <returns>Pointer to the new playlist. Can be null if the operation fails.</returns>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_playlistcontainer_add_playlist(System.IntPtr,System.IntPtr)">
             <summary>
             Add an existing playlist at the end of the given playlist container.
@@ -1006,7 +1020,7 @@
             <returns>A playlist.</returns>
             <remarks>You need to release the playlist when you are done with it.</remarks>
         </member>
-        <member name="M:Torshify.Core.Native.Spotify.sp_session_publishedcontainer_for_user(System.IntPtr,System.String)">
+        <member name="M:Torshify.Core.Native.Spotify.sp_session_publishedcontainer_for_user_create(System.IntPtr,System.String)">
             <summary>
             Return the published container for a given canonical_username, or the currently logged in user if canonical_username is null.
             The container can be released when you're done with it, using <c>sp_session_publishedcontainer_fo_user_release()</c>, or it will be released when calling <c>sp_session_logout()</c>.
@@ -1015,13 +1029,6 @@
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <param name="username">Canonical username.</param>
             <returns>Playlist container object, null if not logged in or not found. </returns>
-        </member>
-        <member name="M:Torshify.Core.Native.Spotify.sp_session_publishedcontainer_for_user_release(System.IntPtr,System.String)">
-            <summary>
-            Releases the playlistcontainer for canonical_username.
-            </summary>
-            <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
-            <param name="username">Canonical username.</param>
         </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_session_preferred_bitrate(System.IntPtr,Torshify.Bitrate)">
             <summary>
@@ -1784,6 +1791,21 @@
             </summary>
             <returns>Sync status</returns>
         </member>
+        <member name="M:Torshify.ISession.GetStarredForUser(System.String)">
+            <summary>
+            Returns the starred list for a user
+            </summary>
+            <param name="canonicalUserName">Canonical username</param>
+            <returns> A playlist or NULL if no user is logged in</returns>
+        </member>
+        <member name="M:Torshify.ISession.GetPlaylistContainerForUser(System.String)">
+            <summary>
+            Return the published container for given a canonical username,
+            or the currently logged in user if canonicalUsername is NULL.
+            </summary>
+            <param name="canonicalUsername"></param>
+            <returns>Playlist container object, NULL if not logged in.</returns>
+        </member>
         <!-- Badly formed XML comment ignored for member "P:Torshify.ISession.LoggedInUserCountry" -->
         <member name="P:Torshify.ISession.IsVolumeNormalizationEnabled">
             <summary>
@@ -1826,9 +1848,12 @@
         </member>
         <member name="M:Torshify.IPlaylist.AutoLinkTracks(System.Boolean)">
             <summary>
-            Autoes the link tracks.
+            Set autolinking state for the playlist
+            
+            If a playlist is autolinked, unplayable tracks will be made playable
+            by linking them to other Spotify tracks, where possible.
             </summary>
-            <param name="autoLink">if set to <c>true</c> [auto link].</param>
+            <param name="autoLink">if set to <c>true</c> auto linking is enabled.</param>
         </member>
         <member name="M:Torshify.IPlaylist.SetOfflineMode(System.Boolean)">
             <summary>
