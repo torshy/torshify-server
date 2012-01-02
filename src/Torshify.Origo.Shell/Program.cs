@@ -1,25 +1,43 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Threading;
+
 using Torshify.Origo.Shell.LoginService;
 using Torshify.Origo.Shell.PlayerControlService;
 using Torshify.Origo.Shell.QueryService;
+
 using Track = Torshify.Origo.Shell.PlayerControlService.Track;
 
 namespace Torshify.Origo.Shell
 {
     class Program : LoginServiceCallback
     {
+        #region Fields
+
         private ManualResetEventSlim _loginEvent;
 
-        static void Main(string[] args)
-        {
-            if (args.Length != 2)
-            {
-                return;
-            }
+        #endregion Fields
 
-            new Program().Run(args[0], args[1]);
+        #region Methods
+
+        void LoginServiceCallback.OnLoggedIn()
+        {
+            Console.WriteLine("Logged in");
+            _loginEvent.Set();
+        }
+
+        void LoginServiceCallback.OnLoggedOut()
+        {
+            Console.WriteLine("Logged out");
+        }
+
+        void LoginServiceCallback.OnLoginError(string message)
+        {
+            Console.WriteLine("Loggin error : " + message);
+        }
+
+        void LoginServiceCallback.OnPing()
+        {
         }
 
         public void Run(string userName, string password)
@@ -65,28 +83,36 @@ namespace Torshify.Origo.Shell
             Console.ReadLine();
         }
 
-        void LoginServiceCallback.OnLoggedIn()
+        static void Main(string[] args)
         {
-            Console.WriteLine("Logged in");
-            _loginEvent.Set();
+            if (args.Length != 2)
+            {
+                return;
+            }
+
+            new Program().Run(args[0], args[1]);
         }
 
-        void LoginServiceCallback.OnLoginError(string message)
-        {
-            Console.WriteLine("Loggin error : " + message);
-        }
+        #endregion Methods
 
-        void LoginServiceCallback.OnLoggedOut()
-        {
-            Console.WriteLine("Logged out");
-        }
-
-        void LoginServiceCallback.OnPing()
-        {
-        }
+        #region Nested Types
 
         public class MyPlayerControlCallbacks : PlayerControlServiceCallback
         {
+            #region Methods
+
+            public void OnElapsed(double elapsedMs, double totalMs)
+            {
+            }
+
+            public void OnPing()
+            {
+            }
+
+            public void OnPlayStateChanged(bool isPlaying)
+            {
+            }
+
             public void OnTrackChanged(Track track)
             {
                 Console.WriteLine("Track changed to " + track.Name);
@@ -97,25 +123,14 @@ namespace Torshify.Origo.Shell
                 Console.WriteLine("Track complete (" + track.Name + ")");
             }
 
-            public void OnElapsed(double elapsedMs, double totalMs)
-            {
-                
-            }
-
-            public void OnPlayStateChanged(bool isPlaying)
-            {
-                
-            }
-
             public void OnVolumeChanged(float volume)
             {
                 Console.WriteLine("Volume changed: " + volume);
             }
 
-            public void OnPing()
-            {
-                
-            }
+            #endregion Methods
         }
+
+        #endregion Nested Types
     }
 }

@@ -2,7 +2,6 @@
 using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Practices.ServiceLocation;
@@ -36,7 +35,10 @@ namespace Torshify.Origo.Services.V1.Image
                     {
                         using (trackLink.Object)
                         {
-                            return BeginGetImage(trackLink.Object.CoverId, callback, state);
+                            if (trackLink.Object.WaitUntilLoaded())
+                            {
+                                return BeginGetImage(trackLink.Object.CoverId, callback, state);
+                            }
                         }
                     }
                 }
@@ -59,7 +61,10 @@ namespace Torshify.Origo.Services.V1.Image
             {
                 using (artistLink)
                 {
-                    return GetArtistImageTask(session, artistLink.Object).ContinueWith(t => callback(t));
+                    if (artistLink.Object.WaitUntilLoaded())
+                    {
+                        return GetArtistImageTask(session, artistLink.Object).ContinueWith(t => callback(t));
+                    }
                 }
             }
 
@@ -93,9 +98,15 @@ namespace Torshify.Origo.Services.V1.Image
                 {
                     using (trackLink.Object.Track)
                     {
-                        using (trackLink.Object.Track.Album)
+                        if (trackLink.Object.Track.WaitUntilLoaded())
                         {
-                            return BeginGetAlbumImage(trackLink.Object.Track.Album.CoverId, callback, state);
+                            using (trackLink.Object.Track.Album)
+                            {
+                                if (trackLink.Object.Track.Album.WaitUntilLoaded())
+                                {
+                                    return BeginGetAlbumImage(trackLink.Object.Track.Album.CoverId, callback, state);
+                                }
+                            }
                         }
                     }
 
@@ -107,7 +118,7 @@ namespace Torshify.Origo.Services.V1.Image
 
         public Stream EndGetAlbumImage(IAsyncResult result)
         {
-            throw new NotImplementedException();
+            return ((Task<Stream>) result).Result;
         }
 
         public Stream EndGetArtistImage(IAsyncResult result)
@@ -148,7 +159,10 @@ namespace Torshify.Origo.Services.V1.Image
                     {
                         using (trackLink.Object)
                         {
-                            return GetImage(trackLink.Object.CoverId);
+                            if (trackLink.Object.WaitUntilLoaded())
+                            {
+                                return GetImage(trackLink.Object.CoverId);
+                            }
                         }
                     }
                 }
@@ -171,7 +185,10 @@ namespace Torshify.Origo.Services.V1.Image
             {
                 using (artistLink)
                 {
-                    return GetArtistImageTask(session, artistLink.Object).Result;
+                    if (artistLink.Object.WaitUntilLoaded())
+                    {
+                        return GetArtistImageTask(session, artistLink.Object).Result;
+                    }
                 }
             }
 
@@ -215,12 +232,14 @@ namespace Torshify.Origo.Services.V1.Image
                 {
                     using (trackLink.Object.Track)
                     {
-                        using (trackLink.Object.Track.Album)
+                        if (trackLink.Object.Track.WaitUntilLoaded())
                         {
-                            return GetImage(trackLink.Object.Track.Album.CoverId);
+                            using (trackLink.Object.Track.Album)
+                            {
+                                return GetImage(trackLink.Object.Track.Album.CoverId);
+                            }
                         }
                     }
-
                 }
             }
 
@@ -237,12 +256,12 @@ namespace Torshify.Origo.Services.V1.Image
                 {
                     using (t.Result)
                     {
-                        while(t.Result.Error == Error.IsLoading)
+                        if (t.Result.WaitUntilLoaded())
                         {
-                            Thread.Yield();
+                            return new MemoryStream(t.Result.Data);
                         }
 
-                        return new MemoryStream(t.Result.Data);
+                        return new MemoryStream();
                     }
                 });
         }
@@ -262,9 +281,7 @@ namespace Torshify.Origo.Services.V1.Image
                             {
                                 if (image.WaitUntilLoaded())
                                 {
-                                    return
-                                        new MemoryStream(
-                                            image.Data);
+                                    return new MemoryStream(image.Data);
                                 }
 
                                 return new MemoryStream();
@@ -277,7 +294,7 @@ namespace Torshify.Origo.Services.V1.Image
                             {
                                 using (album)
                                 {
-                                    if (!string.IsNullOrEmpty(album.CoverId))
+                                    if (album.WaitUntilLoaded() && !string.IsNullOrEmpty(album.CoverId))
                                     {
                                         return GetImage(album.CoverId);
                                     }
