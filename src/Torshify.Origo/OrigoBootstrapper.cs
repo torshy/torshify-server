@@ -90,16 +90,26 @@ namespace Torshify.Origo
             Container.Dispose();
         }
 
-        public void Run()
+        public bool Run()
         {
-            InitializeLogging();
-            InitializeContainer();
-            InitializeSpotify();
-            InitializeServices();
-            InitializeAutoMapper();
-            InitializeStartables();
+            try
+            {
+                InitializeLogging();
+                InitializeContainer();
+                InitializeSpotify();
+                InitializeServices();
+                InitializeAutoMapper();
+                InitializeStartables();
 
-            Logger.Info("torshify server initialized");
+                Logger.Info("torshify server initialized");
+            }
+            catch (Exception e)
+            {
+                Logger.Fatal(e);
+                return false;
+            }
+
+            return true;
         }
 
         private ServiceHost CreateNetTcpServiceHost<T>(string name, Action<ServiceHost<T>> extraConfiguration = null)
@@ -261,6 +271,11 @@ namespace Torshify.Origo
             {
                 Exception exception = (Exception)e.ExceptionObject;
                 Logger.Fatal(exception);
+
+                if (e.IsTerminating)
+                {
+                    Container.Dispose();
+                }
             };
         }
 
@@ -311,7 +326,6 @@ namespace Torshify.Origo
                                              if (e.Status != Error.OK)
                                              {
                                                  Logger.Fatal("Unable to log in to Spotify. " + e.Status.GetMessage());
-                                                 Environment.Exit(-1);
                                              }
                                          };
             session.LogoutComplete += (sender, e) => Logger.Debug(e.Status + " - " + e.Message);
@@ -356,7 +370,6 @@ namespace Torshify.Origo
                 catch (Exception e)
                 {
                     Logger.Fatal(e.Message);
-                    Environment.Exit(-1);
                 }
             }
         }

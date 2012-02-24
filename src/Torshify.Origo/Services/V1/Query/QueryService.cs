@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Microsoft.Practices.ServiceLocation;
+
+using log4net;
+
 using Torshify.Origo.Contracts.V1;
 using Torshify.Origo.Contracts.V1.Query;
 using Torshify.Origo.Extensions;
@@ -10,8 +12,26 @@ using Torshify.Origo.Services.V1.Login;
 namespace Torshify.Origo.Services.V1.Query
 {
     [ServiceBehavior(UseSynchronizationContext = false, IncludeExceptionDetailInFaults = true)]
+    [ServiceLocatorServiceBehavior]
     public class QueryService : IQueryService
     {
+        #region Fields
+
+        private readonly ISession _session;
+
+        private ILog _log = LogManager.GetLogger(typeof(QueryService));
+
+        #endregion Fields
+
+        #region Constructors
+
+        public QueryService(ISession session)
+        {
+            _session = session;
+        }
+
+        #endregion Constructors
+
         #region Methods
 
         public QueryResult Query(
@@ -24,11 +44,20 @@ namespace Torshify.Origo.Services.V1.Query
             int artistCount)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
 
-            return session
+            return _session
                 .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount)
-                .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                .ContinueWith(t => Convertion.ConvertToDto(t.Result))
+                .ContinueWith(t =>
+                {
+                    if (t.Exception != null)
+                    {
+                        _log.Error(t.Exception);
+                        return new QueryResult();
+                    }
+
+                    return t.Result;
+                }).Result;
         }
 
         public IAsyncResult BeginQuery(
@@ -43,9 +72,8 @@ namespace Torshify.Origo.Services.V1.Query
             object state)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
 
-            return session
+            return _session
                 .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount)
                 .ContinueWith(t => Convertion.ConvertToDto(t.Result))
                 .ContinueWith(t => callback(t));
@@ -59,15 +87,24 @@ namespace Torshify.Origo.Services.V1.Query
         public AlbumBrowseResult AlbumBrowse(string albumId)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
 
-            using (var link = session.FromLink<IAlbum>(albumId))
+            using (var link = _session.FromLink<IAlbum>(albumId))
             {
                 using (link.Object)
                 {
-                    return session
+                    return _session
                         .BrowseAsync(link.Object)
-                        .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                        .ContinueWith(t => Convertion.ConvertToDto(t.Result))
+                        .ContinueWith(t =>
+                        {
+                            if (t.Exception != null)
+                            {
+                                _log.Error(t.Exception);
+                                return new AlbumBrowseResult();
+                            }
+
+                            return t.Result;
+                        }).Result;
                 }
             }
         }
@@ -75,10 +112,9 @@ namespace Torshify.Origo.Services.V1.Query
         public IAsyncResult BeginAlbumBrowse(string albumId, AsyncCallback callback, object state)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
-            var link = session.FromLink<IAlbum>(albumId);
+            var link = _session.FromLink<IAlbum>(albumId);
 
-            return session
+            return _session
                 .BrowseAsync(link.Object)
                 .ContinueWith(t =>
                             {
@@ -101,15 +137,24 @@ namespace Torshify.Origo.Services.V1.Query
         public ArtistBrowseResult ArtistBrowse(string artistId, ArtistBrowsingType type)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
-            
-            using (var link = session.FromLink<IArtist>(artistId))
+
+            using (var link = _session.FromLink<IArtist>(artistId))
             {
                 using (link.Object)
                 {
-                    return session
+                    return _session
                         .BrowseAsync(link.Object, Convertion.ConvertBack(type))
-                        .ContinueWith(t => Convertion.ConvertToDto(t.Result)).Result;
+                        .ContinueWith(t => Convertion.ConvertToDto(t.Result))
+                        .ContinueWith(t =>
+                        {
+                            if (t.Exception != null)
+                            {
+                                _log.Error(t.Exception);
+                                return new ArtistBrowseResult();
+                            }
+
+                            return t.Result;
+                        }).Result;
                 }
             }
         }
@@ -117,10 +162,9 @@ namespace Torshify.Origo.Services.V1.Query
         public IAsyncResult BeginArtistBrowse(string artistId, ArtistBrowsingType type, AsyncCallback callback, object state)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
-            var link = session.FromLink<IArtist>(artistId);
+            var link = _session.FromLink<IArtist>(artistId);
 
-            return session
+            return _session
                 .BrowseAsync(link.Object, Convertion.ConvertBack(type))
                 .ContinueWith(t =>
                 {
@@ -143,12 +187,12 @@ namespace Torshify.Origo.Services.V1.Query
         public Playlist GetPlaylist(string link)
         {
             LoginService.EnsureUserIsLoggedIn();
-            var session = ServiceLocator.Current.Resolve<ISession>();
-            var linkObject = session.FromLink<IPlaylist>(link);
+
+            var linkObject = _session.FromLink<IPlaylist>(link);
 
             if (linkObject != null)
             {
-                using(linkObject)
+                using (linkObject)
                 {
                     return Convertion.ConvertToDto(linkObject.Object);
                 }

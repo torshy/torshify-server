@@ -25,9 +25,10 @@ namespace Torshify.Origo.Host
 
             InitializeCommandLineOptions(args);
 
-            Bootstrapper.Run();
-
-            Console.ReadLine();
+            if (Bootstrapper.Run())
+            {
+                Console.ReadLine();
+            }
         }
 
         private static void InitializeAssemblyResolve()

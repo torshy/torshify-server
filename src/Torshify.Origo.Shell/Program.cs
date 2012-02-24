@@ -42,10 +42,13 @@ namespace Torshify.Origo.Shell
 
         public void Run(string userName, string password)
         {
+            Thread.Sleep(4000);
+
             _loginEvent = new ManualResetEventSlim();
 
             var login = new LoginServiceClient(new InstanceContext(this));
             login.Subscribe();
+            
             login.Login(userName, password, false);
             Console.WriteLine("Logging in...");
             if (!_loginEvent.Wait(10000))

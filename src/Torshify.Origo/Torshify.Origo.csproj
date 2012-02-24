@@ -86,6 +86,8 @@
   <ItemGroup>
     <Compile Include="Audio\MusicPlayerController.cs" />
     <Compile Include="Audio\PlaylistController.cs" />
+    <Compile Include="Extensions\ServiceLocatorServiceBehaviorAttribute.cs" />
+    <Compile Include="Extensions\ServiceLocatorServiceInstanceProvider.cs" />
     <Compile Include="Interfaces\IPlaylistController.cs" />
     <Compile Include="OrigoBootstrapper.cs" />
     <Compile Include="Constants.cs" />
