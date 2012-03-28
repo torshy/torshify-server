@@ -241,8 +241,11 @@ namespace Torshify.Origo.Audio
 
         private void OnMusicDeliver(object sender, MusicDeliveryEventArgs e)
         {
-            e.ConsumedFrames = _musicPlayer.EnqueueSamples(e.Channels, e.Rate, e.Samples, e.Frames);
-            IsPlaying = true;
+            if (!_hasReachedEndOfTrack)
+            {
+                e.ConsumedFrames = _musicPlayer.EnqueueSamples(e.Channels, e.Rate, e.Samples, e.Frames);
+                IsPlaying = true;
+            }
         }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs e)
