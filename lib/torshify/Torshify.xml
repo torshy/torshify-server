@@ -163,6 +163,28 @@
             <param name="pcPtr">Playlist container.</param>
             <returns>The user object or null if unknown or none.</returns>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_playlistcontainer_get_unseen_tracks(System.IntPtr,System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            Get the number of new tracks in a playlist since the corresponding
+            function sp_playlistcontainer_clear_unseen_tracks() was called. The
+            function always returns the number of new tracks, and fills the
+            tracks array with the new tracks, but not more than specified in
+            num_tracks. The function will return a negative value on failure.
+            </summary>
+            <param name="pcPtr"></param>
+            <param name="playlistPtr"></param>
+            <param name="tracks"></param>
+            <param name="maxNumberOfTracks"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_playlistcontainer_clear_unseen_tracks(System.IntPtr,System.IntPtr)">
+            <summary>
+            Clears a playlist from unseen tracks, so that next call to sp_playlistcontainer_get_unseen_tracks() will return 0 until a new track is added to the \p playslist.
+            </summary>
+            <param name="pcPtr"></param>
+            <param name="playlistPtr"></param>
+            <returns></returns>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_toplistbrowse_add_ref(System.IntPtr)">
             <summary>
             Increase the reference count of an toplist browse result
@@ -283,7 +305,7 @@
         </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_image_remove_load_callback(System.IntPtr,Torshify.Core.Native.NativeImage.ImageLoadedCallback,System.IntPtr)">
             <summary>
-            Remove an image load callback previously added with <see cref="!:libspotify.sp_image_add_load_callback"/>.
+            Remove an image load callback previously added with libspotify.sp_image_add_load_callback.
             </summary>
             <param name="imagePtr">The image.</param>
             <param name="callbackPtr">Callback that will not be called when image has been fetched.</param>
@@ -493,6 +515,23 @@
             </summary>
             <param name="browsePtr"> artist browse object.</param>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_artistbrowse_num_tophit_tracks(System.IntPtr)">
+            <summary>
+            Given an artist browse object, return number of tophit tracks
+            This is a set of tracks for the artist with highest popularity
+            </summary>
+            <param name="browsePtr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_artistbrowse_tophit_track(System.IntPtr,System.Int32)">
+            <summary>
+            Given an artist browse object, return one of its tophit tracks
+            This is a set of tracks for the artist with highest popularity
+            </summary>
+            <param name="browsePtr"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_session_user(System.IntPtr)">
             <summary>
             Fetches the currently logged in user.
@@ -542,7 +581,7 @@
             </summary>
             <param name="user">The user object</param>
         </member>
-        <member name="M:Torshify.Core.Native.Spotify.sp_search_create(System.IntPtr,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.IntPtr,System.IntPtr)">
+        <member name="M:Torshify.Core.Native.Spotify.sp_search_create(System.IntPtr,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,Torshify.SearchType,System.IntPtr,System.IntPtr)">
             <summary>
             Create a search object from the given query.
             </summary>
@@ -554,22 +593,12 @@
             <param name="album_count">The number of albums to ask for.</param>
             <param name="artist_offset">The offset among the artists of the result.</param>
             <param name="artist_count">The number of artists to ask for.</param>
+            <param name="search_type">Type of search, can be used for suggest searches </param>
             <param name="callbackPtr">Callback that will be called once the search operation is complete.
             Pass null if you are not interested in this event.</param>
             <param name="userdataPtr">Opaque pointer passed to callback.</param>
-            <returns>Pointer to a search object. To free the object, use <c>sp_search_release()</c></returns>
-        </member>
-        <member name="M:Torshify.Core.Native.Spotify.sp_radio_search_create(System.IntPtr,System.UInt32,System.UInt32,Torshify.RadioGenre,System.IntPtr,System.IntPtr)">
-            <summary>
-            Create a search object from the radio channel.
-            </summary>
-            <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
-            <param name="fromYear">Include tracks starting from this year.</param>
-            <param name="toYear">Include tracks up to this year.</param>
-            <param name="genres">Bitmask of genres to include.</param>
-            <param name="callbackPtr">Callback that will be called once the search operation is complete.
-            Pass null if you are not interested in this event.</param>
-            <param name="userdataPtr">Opaque pointer passed to callback.</param>
+            <param name="playlist_offset">The offset among the playlists of the results </param>
+            <param name="playlist_count">The number of playlists to ask for </param>
             <returns>Pointer to a search object. To free the object, use <c>sp_search_release()</c></returns>
         </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_search_is_loaded(System.IntPtr)">
@@ -684,6 +713,37 @@
             </summary>
             <param name="searchPtr">A search object.</param>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_search_num_playlists(System.IntPtr)">
+            <summary>
+            Get the number of playlists for the specified search
+            </summary>
+            <param name="searchPtr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_search_playlist_name(System.IntPtr,System.Int32)">
+            <summary>
+            Return the playlist at the given index in the given search object
+            </summary>
+            <param name="searchPtr"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_search_playlist_uri(System.IntPtr,System.Int32)">
+            <summary>
+            Return the uri of a playlist at the given index in the given search object
+            </summary>
+            <param name="searchPtr"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_search_playlist_image_uri(System.IntPtr,System.Int32)">
+            <summary>
+            Return the image_uri of a playlist at the given index in the given search object
+            </summary>
+            <param name="searchPtr"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_track_is_loaded(System.IntPtr)">
             <summary>
             Get load status for the specified track. If the track is not loaded yet, all other functions operating on the track return default values.
@@ -747,7 +807,6 @@
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <param name="albumPtr">The track.</param>
             <remarks>The track must be loaded or this function will always return false.
-            <seealso cref="!:libspotify.sp_track_is_loaded"/>
             </remarks>
             <returns>True if track is autolinked, otherwise false.</returns>
         </member>
@@ -758,7 +817,6 @@
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <param name="albumPtr">The track.</param>
             <remarks>The track must be loaded or this function will always return false.
-            <seealso cref="!:libspotify.sp_track_is_loaded"/>
             </remarks>
             <returns>True if track is a starred file, otherwise false.</returns>
         </member>
@@ -856,6 +914,12 @@
             </summary>
             <param name="albumPtr">The track object.</param>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_track_get_playable(System.IntPtr,System.IntPtr)">
+            <summary>
+            Return the actual track that will be played if the given track is played
+            </summary>
+            <returns>A track.</returns>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_build_id">
             <summary>
             Return the libspotify build ID
@@ -877,7 +941,7 @@
             </summary>
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
         </member>
-        <member name="M:Torshify.Core.Native.Spotify.sp_session_login(System.IntPtr,System.String,System.String,System.Boolean)">
+        <member name="M:Torshify.Core.Native.Spotify.sp_session_login(System.IntPtr,System.String,System.String,System.Boolean,System.String)">
             <summary>
             Logs in the specified username/password combo. This initiates the download in the background. A callback is called when login is complete.
             </summary>
@@ -995,7 +1059,6 @@
         <member name="M:Torshify.Core.Native.Spotify.sp_session_inbox_create(System.IntPtr)">
             <summary>
             Returns an inbox playlist for the currently logged in user.
-            <seealso cref="!:libspotify.sp_playlist_release"/>
             </summary>
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <returns>A playlist.</returns>
@@ -1004,7 +1067,6 @@
         <member name="M:Torshify.Core.Native.Spotify.sp_session_starred_create(System.IntPtr)">
             <summary>
             Returns the starred list for the current user.
-            <seealso cref="!:libspotify.sp_playlist_release"/>
             </summary>
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <returns>A playlist.</returns>
@@ -1013,7 +1075,6 @@
         <member name="M:Torshify.Core.Native.Spotify.sp_session_starred_for_user_create(System.IntPtr,System.String)">
             <summary>
             Returns the starred list for a user.
-            <seealso cref="!:libspotify.sp_playlist_release"/>
             </summary>
             <param name="sessionPtr">Session object returned from <c>sp_session_create</c>.</param>
             <param name="username">Canonical username.</param>
@@ -1112,6 +1173,15 @@
             </summary>
             <param name="sessionPtr">Session object</param>
             <param name="on">True if volume normalization should be enabled</param>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_session_flush_caches(System.IntPtr)">
+            <summary>
+            This will make libspotify write all data that is meant to be stored
+            on disk to the disk immediately. libspotify does this periodically
+            by itself and also on logout. So under normal conditions this
+            should never need to be used.
+            </summary>
+            <param name="sessionPtr"></param>
         </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_album_is_loaded(System.IntPtr)">
             <summary>
@@ -1518,6 +1588,21 @@
             <param name="playlistPtr">Playlist object</param>
             <returns>Value from 0 - 100 that indicates amount of playlist that is downloaded</returns>
         </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_playlist_is_in_ram(System.IntPtr,System.IntPtr)">
+            <summary>
+            Return whether a playlist is loaded in RAM (as opposed to onl stored on disk)
+            </summary>
+            <param name="sessionPtr"> </param>
+            <param name="playlistPtr">Playlist object.</param>
+        </member>
+        <member name="M:Torshify.Core.Native.Spotify.sp_playlist_set_in_ram(System.IntPtr,System.IntPtr,System.Boolean)">
+             <summary>
+            Set whether a playlist is loaded in RAM (as opposed to only stored on disk)
+             </summary>
+             <param name="sessionPtr"> </param>
+             <param name="playlistPtr">Playlist object.</param>
+            <param name="inRam"> </param>
+        </member>
         <member name="M:Torshify.Core.Native.Spotify.sp_error_message(Torshify.Error)">
             <summary>
             Convert a numeric libspotify error code to a text string.
@@ -1761,7 +1846,7 @@
             <remarks>Used in conjunction with SetConnectionRules to control
             how libspotify should behave in respect to network activity and offline synchronization.</remarks>
             <param name="connectionType">Connection type</param>
-            <returns></returns>
+            <returns>Current session</returns>
         </member>
         <member name="M:Torshify.ISession.SetConnectionRules(Torshify.ConnectionRule)">
             <summary>
@@ -1770,6 +1855,14 @@
             <remarks>Used in conjunction with SetConnectionType to control
             how libspotify should behave in respect to network activity and offline synchronization.</remarks>
             <param name="connectionRule">Connection rules</param>
+            <returns>Current session</returns>
+        </member>
+        <member name="M:Torshify.ISession.SetCacheSize(System.UInt32)">
+            <summary>
+            Set maximum cache size in megabytes.
+            Setting it to 0 (the default) will let libspotify automatically resize the cache (10% of disk free space)
+            </summary>
+            <param name="megabytes">Maximum cache size in megabytes.</param>
             <returns>Current session</returns>
         </member>
         <member name="M:Torshify.ISession.GetNumberOfOfflineTracksRemainingToSync">
@@ -1805,6 +1898,13 @@
             </summary>
             <param name="canonicalUsername"></param>
             <returns>Playlist container object, NULL if not logged in.</returns>
+        </member>
+        <member name="M:Torshify.ISession.FlushCaches">
+            <summary>
+             This will make libspotify write all data that is meant to be stored
+            on disk to the disk immediately. libspotify does this periodically
+            by itself and also on logout. So under normal conditions this should never need to be used.
+            </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Torshify.ISession.LoggedInUserCountry" -->
         <member name="P:Torshify.ISession.IsVolumeNormalizationEnabled">
@@ -1867,6 +1967,11 @@
             </summary>
             <returns>Value from 0 - 100 that indicates amount of playlist that is downloaded</returns>
         </member>
+        <member name="M:Torshify.IPlaylist.UpdateSubscribers">
+            <summary>
+            Ask library to update the subscription count for a playlist
+            </summary>
+        </member>
         <member name="P:Torshify.IPlaylist.IsLoaded">
             <summary>
             Gets a value indicating whether this playlist is loaded.
@@ -1927,6 +2032,29 @@
             Returns a collection of canonical usernames of who are subscribing to this playlist
             </summary>
         </member>
+        <member name="P:Torshify.IPlaylist.Owner">
+            <summary>
+            Returns the owner of the playlist
+            </summary>
+        </member>
+        <member name="P:Torshify.IPlaylist.IsInRam">
+            <summary>
+            Return whether a playlist is loaded in RAM (as opposed to only stored on disk)
+            </summary>
+        </member>
+        <member name="M:Torshify.IContainerPlaylist.GetUnseenTracks(System.Int32,System.Int32@)">
+            <summary>
+            Get the number of new tracks in a playlist since the corresponding
+            function TryClearUnseenTracks() was called.
+            </summary>
+            <param name="maxReturnedTracks"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Torshify.IContainerPlaylist.TryClearUnseenTracks">
+            <summary>
+            Clears a playlist for unseen tracks, so that next call to GetUnseenTracks() will return en empty list until a new track is added to the playslist.
+            </summary>
+        </member>
         <member name="P:Torshify.OfflineSyncStatus.QueuedTracks">
             <summary>
             Queued tracks is things left to sync in current sync operation
@@ -1970,6 +2098,54 @@
         <member name="P:Torshify.OfflineSyncStatus.IsSyncing">
             <summary>
             Set if sync operation is in progress
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.CacheLocation">
+            <summary>
+            The location where Spotify will write cache files.
+            This cache include tracks, cached browse results and coverarts.
+            Set to empty string ("") to disable cache
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.DeviceID">
+            <summary>
+            Device ID for offline synchronization
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.SettingsLocation">
+            <summary>
+            The location where Spotify will write setting files and per-user
+            cache items. This includes playlists, track metadata, etc.
+            'SettingsLocation' may be the same path as 'CacheLocation'.
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.TraceFileLocation">
+            <summary>
+            Path to API trace file
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.UserAgent">
+            <summary>
+            "User-Agent" for your application - max 255 characters long
+            The User-Agent should be a relevant, customer facing identification of your application
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.CompressPlaylists">
+            <summary>
+            Compress local copy of playlists, reduces disk space usage
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.DontSavePlaylistMetadata">
+            <summary>
+            Don't save metadata for local copies of playlists
+            Reduces disk space usage at the expense of needing
+            to request metadata from Spotify backend when loading list
+            </summary>
+        </member>
+        <member name="P:Torshify.SessionOptions.InitiallyUnloadPlaylists">
+            <summary>
+            Avoid loading playlists into RAM on startup. 
+            See IPlaylist.IsInRam for more details.
             </summary>
         </member>
         <member name="F:Torshify.RelationType.Unknown">
@@ -2046,6 +2222,32 @@
         <member name="F:Torshify.ConnectionType.Wired">
             <summary>
             Ethernet cable, etc
+            </summary>
+        </member>
+        <member name="T:Torshify.ArtistBrowseType">
+            <summary>
+            Controls the type of data that will be included in artist browse queries
+            </summary>
+        </member>
+        <member name="F:Torshify.ArtistBrowseType.Full">
+            <summary>
+            All information except tophit tracks
+            </summary>
+        </member>
+        <member name="F:Torshify.ArtistBrowseType.NoTracks">
+            <summary>
+            Only albums and data about them, no tracks.
+            </summary>
+        </member>
+        <member name="F:Torshify.ArtistBrowseType.NoAlbums">
+            <summary>
+            Only return data about the artist (artist name, similar artist biography, etc
+            No tracks or album will be available.
+            </summary>
+        </member>
+        <member name="T:Torshify.SearchType">
+            <summary>
+            Search types
             </summary>
         </member>
     </members>

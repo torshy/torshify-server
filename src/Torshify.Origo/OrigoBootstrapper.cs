@@ -210,6 +210,7 @@ namespace Torshify.Origo
             var fileAppender = new RollingFileAppender();
             var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
             fileAppender.File = Path.Combine(Constants.LogFolder, assembly.GetName().Name + ".log");
+            fileAppender.ImmediateFlush = true;
             fileAppender.AppendToFile = true;
             fileAppender.MaxSizeRollBackups = 10;
             fileAppender.MaxFileSize = 1024 * 1024;
@@ -271,7 +272,7 @@ namespace Torshify.Origo
             {
                 Exception exception = (Exception)e.ExceptionObject;
                 Logger.Fatal(exception);
-
+                
                 if (e.IsTerminating)
                 {
                     Container.Dispose();

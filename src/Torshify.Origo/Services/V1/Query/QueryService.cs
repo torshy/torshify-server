@@ -46,7 +46,7 @@ namespace Torshify.Origo.Services.V1.Query
             LoginService.EnsureUserIsLoggedIn();
 
             return _session
-                .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount)
+                .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount, 0, 0, SearchType.Standard)
                 .ContinueWith(t => Convertion.ConvertToDto(t.Result))
                 .ContinueWith(t =>
                 {
@@ -74,7 +74,7 @@ namespace Torshify.Origo.Services.V1.Query
             LoginService.EnsureUserIsLoggedIn();
 
             return _session
-                .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount)
+                .SearchAsync(query, trackOffset, trackCount, albumOffset, albumCount, artistOffset, artistCount, 0, 0, SearchType.Standard)
                 .ContinueWith(t => Convertion.ConvertToDto(t.Result))
                 .ContinueWith(t => callback(t));
         }
